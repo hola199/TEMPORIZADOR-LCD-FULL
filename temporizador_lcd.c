@@ -43,20 +43,20 @@ T0,
     Temp;
 
 //Mensajes a visulizar
-char disp_1[] = "DISPOSITIVO 1";
-char disp_2[] = "DISPOSITIVO 2";
-char disp_3[] = "DISPOSITIVO 3";
-char disp_4[] = "DISPOSITIVO 4";
+char disp_1[] = "DISP 1";
+char disp_2[] = "DISP 2";
+char disp_3[] = "DISP 3";
+char disp_4[] = "DISP 4";
 
-char configurar1[] = "CONFIGURAR >";
-char configurar2[] = "CONFIGURAR <";
+char configurar1[] = "CONFIG >";
+char configurar2[] = "CONFIG <";
 
 char onn[] = "ONN";
 char off[] = "OFF";
 
 char sistema[] = "SISTEMA";
-char alarma_text[] = "ALARMA";
-char temporizadores[] = "TEMPORIZADORES";
+char alarma_text[] = "ALARM";
+char temporizadores[] = "TEMPS";
 char activado[] = "ACTIVADO";
 char desactivado[] = "DESACTIVADO";
 
@@ -718,18 +718,22 @@ void presentacion()
 
 void configuracion_interruptiones()
 { //funcion para configurar y habilitar interrupciones
-  ADCON1 = 0X0F;
-  T0CON = 0XC6;
-  INTCON = 0XA8;
-  INTCON2 = 0X05;
-  INTCON3 = 0X00;
+   T0IE_bit=1; //Habilita interrupcion por Timer0.
+      RBIE_bit=1; //Habilita interrupcion por cambio en el puerto PORTB.
+      IOCB=0XFF;  //Se habilita interrupcion en todos los puertos del PORTB.
+      PIE2.EEIE=1;  // se habilitar interrupcion por escritura el la EEPROM
+      OPTION_REG=0X06; //Resistencias PULL UP Activadas. Preescaler 128.
+      INTCON.GIE=INTCON.PEIE=1;//Interrupciones activadas.
 }
 void init_main()
 { // configuracion de puertos
-  TRISB = 0XFF;
-  TRISC = 0X00;
-  TRISE = 0;
-  PORTB = PORTC = PORTE = 0X00;
+   TRISB=0XFF;
+     TRISC=0X00;
+     ANSEL=ANSELH=0X00;
+     C1ON_bit=0;
+     C2ON_bit=0;
+     PORTB=PORTC=0X00;
+     activar=0;
 }
 
 void interrupt()
@@ -865,20 +869,20 @@ void interrupt()
       }
     }
 
-    TMR0L = 177; // interrupciones cada 10 milisegundos
-    T0IF_bit = 0;
+     TMR0=177;
+    T0IF_bit=0;
   }
 }
 
 void main()
 {
+configuracion_interruptiones();
   init_main();
-  configuracion_interruptiones();
   Lcd_Init();
   Lcd_Cmd(_LCD_CLEAR);
   Lcd_Cmd(_LCD_CURSOR_OFF);
   //presentacion();
-  TMR0L = 177;
+  TMR0=177;
   activar = 1;
   while (1)
   {
