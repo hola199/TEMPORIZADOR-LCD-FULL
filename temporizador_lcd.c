@@ -21,7 +21,6 @@ sbit DISPOSITIVO_4 at RC4_bit;
 /////////////////////////////////////////////variables
 signed short int segundos = 0, minutos = 0, horas = 0;
 
-char unidades, decenas; // variables para estraer unidades y decenas
 short decrementar = 0, j, k = 0, activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0, py = 0;
 int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt_alarma = 0; // todo los contadores son de tipo int
 short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
@@ -62,6 +61,7 @@ char desactivado[] = "DESACTIVADO";
 
 void mostrar_segundos()
 { //funcion para visualizar segundos
+  int decenas, unidades;
   switch (N0_Temp)
   {
   case 0:
@@ -89,6 +89,7 @@ void mostrar_segundos()
 }
 void mostrar_minutos()
 { //funcion para visualizar minutos
+  int decenas, unidades;
   switch (N0_Temp)
   {
   case 0:
@@ -116,6 +117,7 @@ void mostrar_minutos()
 }
 void mostrar_horas()
 { //funcion para visualizar horas
+  int decenas, unidades;
   switch (N0_Temp)
   {
   case 0:
@@ -144,6 +146,7 @@ void mostrar_horas()
 
 void mostrar_segundos_temp()
 { //funcion para visualizar segundos (edicion)
+  int decenas, unidades;
   decenas = Temp.Segundo / 10;
   unidades = Temp.Segundo % 10;
   Lcd_Chr(2, 14, (unidades + 48));
@@ -151,6 +154,7 @@ void mostrar_segundos_temp()
 }
 void mostrar_minutos_temp()
 { //funcion para visualizar minutos (edicion)
+  int decenas, unidades;
   decenas = Temp.Minuto / 10;
   unidades = Temp.Minuto % 10;
   Lcd_Chr(2, 11, (unidades + 48));
@@ -159,6 +163,7 @@ void mostrar_minutos_temp()
 
 void mostrar_horas_temp()
 { //funcion para visualizar horas  (edicion)
+  int decenas, unidades;
   decenas = Temp.Hora / 10;
   unidades = Temp.Hora % 10;
   Lcd_Chr(2, 8, (unidades + 48));
