@@ -44,8 +44,7 @@ T0,
 //Mensajes a visulizar
 char disp[] = "DISP";
 
-char configurar1[] = "CONFIG >";
-char configurar2[] = "CONFIG <";
+char config[] = "CONFIG";
 
 char onn[] = "ONN";
 char off[] = "OFF";
@@ -520,25 +519,29 @@ void visualizar_N0_Timer2()
   switch (N0_Temp)
   {
   case 0:
-    Lcd_Out(1, 3, configurar1);
+    Lcd_Out(1, 3, config);
+    Lcd_Chr(1, 3 + 8, '>');
     Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
     Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
 
   case 1:
-    Lcd_Out(1, 3, configurar1);
+    Lcd_Out(1, 3, config);
+    Lcd_Chr(1, 3 + 8, '>');
     Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
     Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
 
   case 2:
-    Lcd_Out(1, 3, configurar1);
+    Lcd_Out(1, 3, config);
+    Lcd_Chr(1, 3 + 8, '>');
     Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
     Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
 
   case 3:
-    Lcd_Out(1, 3, configurar2);
+    Lcd_Out(1, 3, config);
+    Lcd_Chr(1, 3 + 8, '<');
     Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
     Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
@@ -1135,7 +1138,8 @@ void main()
       //Opcion para configurar la alarma
       if (h)
       {
-        Lcd_Out(1, 2, configurar1);
+        Lcd_Out(1, 2, config);
+        Lcd_Chr(1, 2 + 8, '>');
         Lcd_Out(2, 3, alarma_text);
         // Cambiar a, configurar temporizadores
         if (Dec)
@@ -1157,7 +1161,8 @@ void main()
       //Opcion para configurar los temporizadores
       if (h == 0)
       {
-        Lcd_Out(1, 2, configurar2);
+        Lcd_Out(1, 2, config);
+        Lcd_Chr(1, 2 + 8, '>');
         Lcd_Out(2, 2, temporizadores);
 
         if (Inc)
