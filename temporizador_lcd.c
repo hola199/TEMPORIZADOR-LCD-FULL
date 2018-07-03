@@ -42,10 +42,7 @@ T0,
     Temp;
 
 //Mensajes a visulizar
-char disp_1[] = "DISP 1";
-char disp_2[] = "DISP 2";
-char disp_3[] = "DISP 3";
-char disp_4[] = "DISP 4";
+char disp[] = "DISP";
 
 char configurar1[] = "CONFIG >";
 char configurar2[] = "CONFIG <";
@@ -440,12 +437,13 @@ void Inc_Dec_N0Timer()
 
 void visualizar_N0_Timer()
 {
-
+  int row = 1, col = 2;
   switch (N0_Temp)
   {
   case 0:
-    Lcd_Out(1, 2, disp_1); //visualizar el numero de DISPOSITIVO
-                           // activar los dos puntos : cuando el DISPOSITIVO este en 1
+    Lcd_Out(row, col, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(row, col + 5, (N0_Temp + 1) + 48);
+    // activar los dos puntos : cuando el DISPOSITIVO este en 1
     if (DISPOSITIVO_1 == 1)
       habilitar_puntos = 1;
     else
@@ -462,7 +460,8 @@ void visualizar_N0_Timer()
     break;
 
   case 1:
-    Lcd_Out(1, 2, disp_2);
+    Lcd_Out(row, col, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(row, col + 5, (N0_Temp + 1) + 48);
 
     if (DISPOSITIVO_2 == 1)
       habilitar_puntos = 1;
@@ -479,7 +478,8 @@ void visualizar_N0_Timer()
     break;
 
   case 2:
-    Lcd_Out(1, 2, disp_3);
+    Lcd_Out(row, col, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(row, col + 5, (N0_Temp + 1) + 48);
 
     if (DISPOSITIVO_3 == 1)
       habilitar_puntos = 1;
@@ -496,7 +496,8 @@ void visualizar_N0_Timer()
     break;
 
   case 3:
-    Lcd_Out(1, 2, disp_4);
+    Lcd_Out(row, col, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(row, col + 5, (N0_Temp + 1) + 48);
 
     if (DISPOSITIVO_4 == 1)
       habilitar_puntos = 1;
@@ -520,22 +521,26 @@ void visualizar_N0_Timer2()
   {
   case 0:
     Lcd_Out(1, 3, configurar1);
-    Lcd_Out(2, 2, disp_1);
+    Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
 
   case 1:
     Lcd_Out(1, 3, configurar1);
-    Lcd_Out(2, 2, disp_2);
+    Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
 
   case 2:
     Lcd_Out(1, 3, configurar1);
-    Lcd_Out(2, 2, disp_3);
+    Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
 
   case 3:
     Lcd_Out(1, 3, configurar2);
-    Lcd_Out(2, 2, disp_4);
+    Lcd_Out(2, 2, disp); //visualizar el numero de DISPOSITIVO
+    Lcd_Chr(2, 2 + 5, (N0_Temp + 1) + 48);
     break;
   }
 }
@@ -722,23 +727,23 @@ void presentacion()
 }
 
 void configuracion_interruptiones()
-{ //funcion para configurar y habilitar interrupciones
-   T0IE_bit=1; //Habilita interrupcion por Timer0.
-      RBIE_bit=1; //Habilita interrupcion por cambio en el puerto PORTB.
-      IOCB=0XFF;  //Se habilita interrupcion en todos los puertos del PORTB.
-      PIE2.EEIE=1;  // se habilitar interrupcion por escritura el la EEPROM
-      OPTION_REG=0X06; //Resistencias PULL UP Activadas. Preescaler 128.
-      INTCON.GIE=INTCON.PEIE=1;//Interrupciones activadas.
+{                               //funcion para configurar y habilitar interrupciones
+  T0IE_bit = 1;                 //Habilita interrupcion por Timer0.
+  RBIE_bit = 1;                 //Habilita interrupcion por cambio en el puerto PORTB.
+  IOCB = 0XFF;                  //Se habilita interrupcion en todos los puertos del PORTB.
+  PIE2.EEIE = 1;                // se habilitar interrupcion por escritura el la EEPROM
+  OPTION_REG = 0X06;            //Resistencias PULL UP Activadas. Preescaler 128.
+  INTCON.GIE = INTCON.PEIE = 1; //Interrupciones activadas.
 }
 void init_main()
 { // configuracion de puertos
-   TRISB=0XFF;
-     TRISC=0X00;
-     ANSEL=ANSELH=0X00;
-     C1ON_bit=0;
-     C2ON_bit=0;
-     PORTB=PORTC=0X00;
-     activar=0;
+  TRISB = 0XFF;
+  TRISC = 0X00;
+  ANSEL = ANSELH = 0X00;
+  C1ON_bit = 0;
+  C2ON_bit = 0;
+  PORTB = PORTC = 0X00;
+  activar = 0;
 }
 
 void interrupt()
@@ -874,20 +879,20 @@ void interrupt()
       }
     }
 
-     TMR0=177;
-    T0IF_bit=0;
+    TMR0 = 177;
+    T0IF_bit = 0;
   }
 }
 
 void main()
 {
-configuracion_interruptiones();
+  configuracion_interruptiones();
   init_main();
   Lcd_Init();
   Lcd_Cmd(_LCD_CLEAR);
   Lcd_Cmd(_LCD_CURSOR_OFF);
   //presentacion();
-  TMR0=177;
+  TMR0 = 177;
   activar = 1;
   while (1)
   {
@@ -1212,13 +1217,17 @@ configuracion_interruptiones();
       mostrar_puntos();
 
       if (N0_Temp == 0)
-        Lcd_Out(1, 3, disp_1);
+        Lcd_Out(1, 3, disp); //visualizar el numero de DISPOSITIVO
+      Lcd_Chr(1, 3 + 5, (N0_Temp + 1) + 48);
       if (N0_Temp == 1)
-        Lcd_Out(1, 3, disp_2);
+        Lcd_Out(1, 3, disp); //visualizar el numero de DISPOSITIVO
+      Lcd_Chr(1, 3 + 5, (N0_Temp + 1) + 48);
       if (N0_Temp == 2)
-        Lcd_Out(1, 3, disp_3);
+        Lcd_Out(1, 3, disp); //visualizar el numero de DISPOSITIVO
+      Lcd_Chr(1, 3 + 5, (N0_Temp + 1) + 48);
       if (N0_Temp == 3)
-        Lcd_Out(1, 3, disp_4);
+        Lcd_Out(1, 3, disp); //visualizar el numero de DISPOSITIVO
+      Lcd_Chr(1, 3 + 5, (N0_Temp + 1) + 48);
 
       if (OK)
       {
