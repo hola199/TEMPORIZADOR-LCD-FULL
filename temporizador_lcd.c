@@ -32,6 +32,7 @@ short programa = 0, N0_Temp = 0, estado1 = 1, estado2 = 1, estado3 = 1, estado4 
 struct Time
 {
   signed short int Segundo, Minuto, Hora;
+  int *metodo(int, int);
 }
     //Variables para guardar en la EEPROm el tiempo ajustado en los temporizadores
     E0, E1, E2, E3,
