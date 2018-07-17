@@ -59,89 +59,85 @@ char temporizadores[] = "TEMPORIZADORES";
 char activado[] = "ACTIVADO";
 char desactivado[] = "DESACTIVADO";
 
+void ver_temporizador(int row, int col, int minuto)
+{
+  int decenas, unidades;
+  decenas = minuto / 10;
+  unidades = minuto % 10;
+  Lcd_Chr(row, col + 1, (unidades + 48));
+  Lcd_Chr(row, col, (decenas + 48));
+}
+
+//funcion para visualizar segundos
 void mostrar_segundos()
-{ //funcion para visualizar segundos
-  int decenas, unidades;
+{
+  const row = 2, col = 13;
   switch (N0_Temp)
   {
   case 0:
-    decenas = T0.Segundo / 10;
-    unidades = T0.Segundo % 10;
+    ver_temporizador(row, col, T0.Segundo);
     break;
 
   case 1:
-    decenas = T1.Segundo / 10;
-    unidades = T1.Segundo % 10;
+    ver_temporizador(row, col, T1.Segundo);
     break;
 
   case 2:
-    decenas = T2.Segundo / 10;
-    unidades = T2.Segundo % 10;
+    ver_temporizador(row, col, T2.Segundo);
     break;
 
   case 3:
-    decenas = T3.Segundo / 10;
-    unidades = T3.Segundo % 10;
+    ver_temporizador(row, col, T3.Segundo);
     break;
   }
-  Lcd_Chr(2, 14, (unidades + 48));
-  Lcd_Chr(2, 13, (decenas + 48));
 }
+
+//funcion para visualizar minutos
 void mostrar_minutos()
-{ //funcion para visualizar minutos
-  int decenas, unidades;
+{
+  const row = 2, col = 10;
   switch (N0_Temp)
   {
   case 0:
-    decenas = T0.Minuto / 10;
-    unidades = T0.Minuto % 10;
+    ver_temporizador(row, col, T0.Minuto);
     break;
 
   case 1:
-    decenas = T1.Minuto / 10;
-    unidades = T1.Minuto % 10;
+    ver_temporizador(row, col, T1.Minuto);
     break;
 
   case 2:
-    decenas = T2.Minuto / 10;
-    unidades = T2.Minuto % 10;
+    ver_temporizador(row, col, T2.Minuto);
     break;
 
   case 3:
-    decenas = T3.Minuto / 10;
-    unidades = T3.Minuto % 10;
+    ver_temporizador(row, col, T3.Minuto);
     break;
   }
-  Lcd_Chr(2, 11, (unidades + 48));
-  Lcd_Chr(2, 10, (decenas + 48));
 }
+
+//funcion para visualizar horas
 void mostrar_horas()
-{ //funcion para visualizar horas
-  int decenas, unidades;
+{
+  const row = 2, col = 7;
   switch (N0_Temp)
   {
   case 0:
-    decenas = T0.Hora / 10;
-    unidades = T0.Hora % 10;
+    ver_temporizador(row, col, T0.Hora);
     break;
 
   case 1:
-    decenas = T1.Hora / 10;
-    unidades = T1.Hora % 10;
+    ver_temporizador(row, col, T1.Hora);
     break;
 
   case 2:
-    decenas = T2.Hora / 10;
-    unidades = T2.Hora % 10;
+    ver_temporizador(row, col, T2.Hora);
     break;
 
   case 3:
-    decenas = T3.Hora / 10;
-    unidades = T3.Hora % 10;
+    ver_temporizador(row, col, T3.Hora);
     break;
   }
-  Lcd_Chr(2, 8, (unidades + 48));
-  Lcd_Chr(2, 7, (decenas + 48));
 }
 
 void mostrar_segundos_temp()
