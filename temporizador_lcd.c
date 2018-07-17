@@ -34,12 +34,11 @@ struct Time
   signed short int Segundo, Minuto, Hora;
 }
 //Variables para visualizar el tiempo en la lcd
-T0,
     T1, T2, T3,
     //Variables para guardar en la EEPROm el tiempo ajustado en los temporizadores
     E0, E1, E2, E3,
     //tiempo temporal o de modificacion
-    Temp;
+    Temp, arrayTemp[4];
 
 //Mensajes a visulizar
 
@@ -71,7 +70,7 @@ void mostrar_segundos()
   switch (N0_Temp)
   {
   case 0:
-    ver_temporizador(row, col, T0.Segundo);
+    ver_temporizador(row, col, arrayTemp[0].Segundo);
     break;
 
   case 1:
@@ -95,7 +94,7 @@ void mostrar_minutos()
   switch (N0_Temp)
   {
   case 0:
-    ver_temporizador(row, col, T0.Minuto);
+    ver_temporizador(row, col, arrayTemp[0].Minuto);
     break;
 
   case 1:
@@ -119,7 +118,7 @@ void mostrar_horas()
   switch (N0_Temp)
   {
   case 0:
-    ver_temporizador(row, col, T0.Hora);
+    ver_temporizador(row, col, arrayTemp[0].Hora);
     break;
 
   case 1:
@@ -215,21 +214,21 @@ void mostrar_puntos()
 
 void cuenta_regresiva1()
 { //configuracion/cuenta regresiva ( dispositovo1)
-  if (T0.Segundo > 0 || T0.Minuto > 0 || T0.Hora > 0)
+  if (arrayTemp[0].Segundo > 0 || arrayTemp[0].Minuto > 0 || arrayTemp[0].Hora > 0)
   {
-    if (T0.Segundo < 0)
+    if (arrayTemp[0].Segundo < 0)
     {
-      T0.Minuto--;
-      T0.Segundo = 59;
+      arrayTemp[0].Minuto--;
+      arrayTemp[0].Segundo = 59;
     }
 
-    if (T0.Minuto < 0)
+    if (arrayTemp[0].Minuto < 0)
     {
-      T0.Hora--;
-      T0.Minuto = 59;
+      arrayTemp[0].Hora--;
+      arrayTemp[0].Minuto = 59;
     }
-    if (T0.Hora < 0)
-      T0.Hora = 0;
+    if (arrayTemp[0].Hora < 0)
+      arrayTemp[0].Hora = 0;
   }
 }
 
@@ -307,9 +306,9 @@ void leer_EEPROM()
     E0.Minuto = EEPROM_Read(0x001);
     E0.Hora = EEPROM_Read(0x02);
 
-    T0.Segundo = E0.Segundo;
-    T0.Minuto = E0.Minuto;
-    T0.Hora = E0.Hora;
+    arrayTemp[0].Segundo = E0.Segundo;
+    arrayTemp[0].Minuto = E0.Minuto;
+    arrayTemp[0].Hora = E0.Hora;
   }
 
   if (N0_Temp == 1 && programa == 0)
@@ -810,7 +809,7 @@ void interrupt()
       {
         //decremento de segundos, segun lo indique el estado de cada dispositivo
         if (DISPOSITIVO_1 == 1)
-          T0.Segundo--;
+          arrayTemp[0].Segundo--;
         if (DISPOSITIVO_2 == 1)
           T1.Segundo--;
         if (DISPOSITIVO_3 == 1)
@@ -1050,7 +1049,7 @@ void main()
         }
       }
 
-      if (T0.Segundo == 0 && T0.Minuto == 0 && T0.Hora == 0 && DISPOSITIVO_1 == 1)
+      if (arrayTemp[0].Segundo == 0 && arrayTemp[0].Minuto == 0 && arrayTemp[0].Hora == 0 && DISPOSITIVO_1 == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_1 = 0;
