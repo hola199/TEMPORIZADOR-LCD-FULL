@@ -41,9 +41,6 @@ E0,
 
 //Mensajes a visulizar
 
-char configurar1[] = "CONFIGURAR >";
-char configurar2[] = "CONFIGURAR <";
-
 char onn[] = "ONN";
 char off[] = "OFF";
 
@@ -440,27 +437,24 @@ void visualizar_N0_Timer()
   }
 }
 
-void visualizar_N0_Timer2()
+void LCD_N0_Timer(int N)
 {
   const row = 2, col = 2;
-  Lcd_N_Timer(row, col, N0_temp);
-  switch (N0_Temp)
+  Lcd_N_Timer(row, col, N);
+  Lcd_Out(1, 3, "CONFIGURAR");
+}
+
+void visualizar_N0_Timer2()
+{
+  if (N0_temp == 3)
   {
-  case 0:
-    Lcd_Out(1, 3, configurar1);
-    break;
-
-  case 1:
-    Lcd_Out(1, 3, configurar1);
-    break;
-
-  case 2:
-    Lcd_Out(1, 3, configurar1);
-    break;
-
-  case 3:
-    Lcd_Out(1, 3, configurar2);
-    break;
+    LCD_N0_Timer(N0_temp);
+    Lcd_Chr(1, 14, '<');
+  }
+  else
+  {
+    LCD_N0_Timer(N0_temp);
+    Lcd_Chr(1, 14, '>');
   }
 }
 
@@ -1055,7 +1049,7 @@ void main()
       //Opcion para configurar la alarma
       if (h)
       {
-        Lcd_Out(1, 2, configurar1);
+        Lcd_Out(1, 2, "CONFIGURAR >");
         Lcd_Out(2, 3, alarma_text);
         // Cambiar a, configurar temporizadores
         if (Dec)
@@ -1077,7 +1071,7 @@ void main()
       //Opcion para configurar los temporizadores
       if (h == 0)
       {
-        Lcd_Out(1, 2, configurar2);
+        Lcd_Out(1, 2, "CONFIGURAR < ");
         Lcd_Out(2, 2, temporizadores);
 
         if (Inc)
