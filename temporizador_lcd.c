@@ -33,8 +33,9 @@ struct Time
 {
   signed short int Segundo, Minuto, Hora;
 }
-    //Variables para guardar en la EEPROm el tiempo ajustado en los temporizadores
-    E0, E1, E2, E3,
+//Variables para guardar en la EEPROm el tiempo ajustado en los temporizadores
+E0,
+    E1, E2, E3,
     //tiempo temporal o de modificacion
     Temp, arrayTemp[4];
 
@@ -212,30 +213,22 @@ void mostrar_puntos()
 
 void cuenta_regresiva(int numero)
 { //configuracion/cuenta regresiva ( dispositovo1)
-  signed short _Hora = arrayTemp[numero].Hora;
-  signed short _Minuto = arrayTemp[numero].Minuto;
-  signed short _Segundo = arrayTemp[numero].Segundo;
-
-  if (_Segundo > 0 || _Minuto > 0 || _Hora > 0)
+  if (arrayTemp[numero].Segundo > 0 || arrayTemp[numero].Minuto > 0 || arrayTemp[numero].Hora > 0)
   {
-    if (_Segundo < 0)
+    if (arrayTemp[numero].Segundo < 0)
     {
-      _Minuto--;
-      _Segundo = 59;
+      arrayTemp[numero].Minuto--;
+      arrayTemp[numero].Segundo = 59;
     }
 
-    if (_Minuto < 0)
+    if (arrayTemp[numero].Minuto < 0)
     {
-      _Hora--;
-      _Minuto = 59;
+      arrayTemp[numero].Hora--;
+      arrayTemp[numero].Minuto = 59;
     }
-    if (_Hora < 0)
-      _Hora = 0;
+    if (arrayTemp[numero].Hora < 0)
+      arrayTemp[numero].Hora = 0;
   }
-
-  arrayTemp[numero].Hora = _Hora;
-  arrayTemp[numero].Minuto = _Minuto;
-  arrayTemp[numero].Segundo = _Segundo;
 }
 
 void pausa()
