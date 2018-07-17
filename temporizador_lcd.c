@@ -1129,15 +1129,7 @@ void main()
     {
       const row = 1, col = 3;
       mostrar_puntos();
-
-      if (N0_Temp == 0)
-        Lcd_N_Timer(row, col, N0_temp);
-      if (N0_Temp == 1)
-        Lcd_N_Timer(row, col, N0_temp);
-      if (N0_Temp == 2)
-        Lcd_N_Timer(row, col, N0_temp);
-      if (N0_Temp == 3)
-        Lcd_N_Timer(row, col, N0_temp);
+      Lcd_N_Timer(row, col, N0_temp);
 
       if (OK)
       {
