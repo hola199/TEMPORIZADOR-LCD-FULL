@@ -42,10 +42,6 @@ T0,
     Temp;
 
 //Mensajes a visulizar
-char disp_1[] = "DISPOSITIVO 1";
-char disp_2[] = "DISPOSITIVO 2";
-char disp_3[] = "DISPOSITIVO 3";
-char disp_4[] = "DISPOSITIVO 4";
 
 char configurar1[] = "CONFIGURAR >";
 char configurar2[] = "CONFIGURAR <";
@@ -434,14 +430,20 @@ void Inc_Dec_N0Timer()
   }
 }
 
+void Lcd_N_Timer(int row, int col, int N0_Temp)
+{
+  Lcd_Out(row, col, "DISPOSITIVO"); //visualizar el numero de DISPOSITIVO
+  Lcd_Chr(row, col + 12, N0_Temp + 49);
+}
+
 void visualizar_N0_Timer()
 {
-
+  const row = 1, col = 2;
   switch (N0_Temp)
   {
   case 0:
-    Lcd_Out(1, 2, disp_1); //visualizar el numero de DISPOSITIVO
-                           // activar los dos puntos : cuando el DISPOSITIVO este en 1
+    Lcd_N_Timer(row, col, N0_temp);
+    // activar los dos puntos : cuando el DISPOSITIVO este en 1
     if (DISPOSITIVO_1 == 1)
       habilitar_puntos = 1;
     else
@@ -458,7 +460,7 @@ void visualizar_N0_Timer()
     break;
 
   case 1:
-    Lcd_Out(1, 2, disp_2);
+    Lcd_N_Timer(row, col, N0_temp);
 
     if (DISPOSITIVO_2 == 1)
       habilitar_puntos = 1;
@@ -475,7 +477,7 @@ void visualizar_N0_Timer()
     break;
 
   case 2:
-    Lcd_Out(1, 2, disp_3);
+    Lcd_N_Timer(row, col, N0_temp);
 
     if (DISPOSITIVO_3 == 1)
       habilitar_puntos = 1;
@@ -492,7 +494,7 @@ void visualizar_N0_Timer()
     break;
 
   case 3:
-    Lcd_Out(1, 2, disp_4);
+    Lcd_N_Timer(row, col, N0_temp);
 
     if (DISPOSITIVO_4 == 1)
       habilitar_puntos = 1;
@@ -512,26 +514,27 @@ void visualizar_N0_Timer()
 
 void visualizar_N0_Timer2()
 {
+  const row = 2, col = 2;
   switch (N0_Temp)
   {
   case 0:
     Lcd_Out(1, 3, configurar1);
-    Lcd_Out(2, 2, disp_1);
+    Lcd_N_Timer(row, col, N0_temp);
     break;
 
   case 1:
     Lcd_Out(1, 3, configurar1);
-    Lcd_Out(2, 2, disp_2);
+    Lcd_N_Timer(row, col, N0_temp);
     break;
 
   case 2:
     Lcd_Out(1, 3, configurar1);
-    Lcd_Out(2, 2, disp_3);
+    Lcd_N_Timer(row, col, N0_temp);
     break;
 
   case 3:
     Lcd_Out(1, 3, configurar2);
-    Lcd_Out(2, 2, disp_4);
+    Lcd_N_Timer(row, col, N0_temp);
     break;
   }
 }
@@ -1200,17 +1203,17 @@ void main()
     //ajustar los temporizadores
     while (programa == 3)
     {
-
+      const row = 1, col = 3;
       mostrar_puntos();
 
       if (N0_Temp == 0)
-        Lcd_Out(1, 3, disp_1);
+        Lcd_N_Timer(row, col, N0_temp);
       if (N0_Temp == 1)
-        Lcd_Out(1, 3, disp_2);
+        Lcd_N_Timer(row, col, N0_temp);
       if (N0_Temp == 2)
-        Lcd_Out(1, 3, disp_3);
+        Lcd_N_Timer(row, col, N0_temp);
       if (N0_Temp == 3)
-        Lcd_Out(1, 3, disp_4);
+        Lcd_N_Timer(row, col, N0_temp);
 
       if (OK)
       {
