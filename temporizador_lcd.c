@@ -33,8 +33,6 @@ struct Time
 {
   signed short int Segundo, Minuto, Hora;
 }
-//Variables para visualizar el tiempo en la lcd
-      T3,
     //Variables para guardar en la EEPROm el tiempo ajustado en los temporizadores
     E0, E1, E2, E3,
     //tiempo temporal o de modificacion
@@ -82,7 +80,7 @@ void mostrar_segundos()
     break;
 
   case 3:
-    ver_temporizador(row, col, T3.Segundo);
+    ver_temporizador(row, col, arrayTemp[3].Segundo);
     break;
   }
 }
@@ -106,7 +104,7 @@ void mostrar_minutos()
     break;
 
   case 3:
-    ver_temporizador(row, col, T3.Minuto);
+    ver_temporizador(row, col, arrayTemp[3].Minuto);
     break;
   }
 }
@@ -130,7 +128,7 @@ void mostrar_horas()
     break;
 
   case 3:
-    ver_temporizador(row, col, T3.Hora);
+    ver_temporizador(row, col, arrayTemp[3].Hora);
     break;
   }
 }
@@ -274,21 +272,21 @@ void cuenta_regresiva3()
 
 void cuenta_regresiva4()
 { //configuracion/cuenta regresiva ( dispositivo 4)
-  if (T3.Segundo > 0 || T3.Minuto > 0 || T3.Hora > 0)
+  if (arrayTemp[3].Segundo > 0 || arrayTemp[3].Minuto > 0 || arrayTemp[3].Hora > 0)
   {
-    if (T3.Segundo < 0)
+    if (arrayTemp[3].Segundo < 0)
     {
-      T3.Minuto--;
-      T3.Segundo = 59;
+      arrayTemp[3].Minuto--;
+      arrayTemp[3].Segundo = 59;
     }
 
-    if (T3.Minuto < 0)
+    if (arrayTemp[3].Minuto < 0)
     {
-      T3.Hora--;
-      T3.Minuto = 59;
+      arrayTemp[3].Hora--;
+      arrayTemp[3].Minuto = 59;
     }
-    if (T3.Hora < 0)
-      T3.Hora = 0;
+    if (arrayTemp[3].Hora < 0)
+      arrayTemp[3].Hora = 0;
   }
 }
 
@@ -339,9 +337,9 @@ void leer_EEPROM()
     E3.Minuto = EEPROM_Read(0x10);
     E3.Hora = EEPROM_Read(0x11);
 
-    T3.Segundo = E3.Segundo;
-    T3.Minuto = E3.Minuto;
-    T3.Hora = E3.Hora;
+    arrayTemp[3].Segundo = E3.Segundo;
+    arrayTemp[3].Minuto = E3.Minuto;
+    arrayTemp[3].Hora = E3.Hora;
   }
 }
 void grabar_EEPROM()
@@ -815,7 +813,7 @@ void interrupt()
         if (DISPOSITIVO_3 == 1)
           arrayTemp[2].Segundo--;
         if (DISPOSITIVO_4 == 1)
-          T3.Segundo--;
+          arrayTemp[3].Segundo--;
         if (habilitar_puntos == 1)
           activar = 1;
         contador = 0;
@@ -1090,7 +1088,7 @@ void main()
           modo_reposo = 1;
       }
 
-      if (T3.Segundo == 0 && T3.Minuto == 0 && T3.Hora == 0 && DISPOSITIVO_4 == 1)
+      if (arrayTemp[3].Segundo == 0 && arrayTemp[3].Minuto == 0 && arrayTemp[3].Hora == 0 && DISPOSITIVO_4 == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_4 = 0;
