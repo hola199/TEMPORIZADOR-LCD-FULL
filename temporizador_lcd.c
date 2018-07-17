@@ -372,10 +372,11 @@ void Lcd_N_Timer(int row, int col, int N0_Temp)
 void visualizar_N0_Timer()
 {
   const row = 1, col = 2;
+  Lcd_N_Timer(row, col, N0_temp);
+
   switch (N0_Temp)
   {
   case 0:
-    Lcd_N_Timer(row, col, N0_temp);
     // activar los dos puntos : cuando el DISPOSITIVO este en 1
     if (DISPOSITIVO_1 == 1)
       habilitar_puntos = 1;
@@ -393,8 +394,6 @@ void visualizar_N0_Timer()
     break;
 
   case 1:
-    Lcd_N_Timer(row, col, N0_temp);
-
     if (DISPOSITIVO_2 == 1)
       habilitar_puntos = 1;
     else
@@ -410,8 +409,6 @@ void visualizar_N0_Timer()
     break;
 
   case 2:
-    Lcd_N_Timer(row, col, N0_temp);
-
     if (DISPOSITIVO_3 == 1)
       habilitar_puntos = 1;
     else
@@ -427,8 +424,6 @@ void visualizar_N0_Timer()
     break;
 
   case 3:
-    Lcd_N_Timer(row, col, N0_temp);
-
     if (DISPOSITIVO_4 == 1)
       habilitar_puntos = 1;
     else
@@ -448,26 +443,23 @@ void visualizar_N0_Timer()
 void visualizar_N0_Timer2()
 {
   const row = 2, col = 2;
+  Lcd_N_Timer(row, col, N0_temp);
   switch (N0_Temp)
   {
   case 0:
     Lcd_Out(1, 3, configurar1);
-    Lcd_N_Timer(row, col, N0_temp);
     break;
 
   case 1:
     Lcd_Out(1, 3, configurar1);
-    Lcd_N_Timer(row, col, N0_temp);
     break;
 
   case 2:
     Lcd_Out(1, 3, configurar1);
-    Lcd_N_Timer(row, col, N0_temp);
     break;
 
   case 3:
     Lcd_Out(1, 3, configurar2);
-    Lcd_N_Timer(row, col, N0_temp);
     break;
   }
 }
@@ -671,7 +663,7 @@ void init_main()
 
 isZeroTemp(int N)
 {
- return arrayTemp[N].Segundo == 0 && arrayTemp[N].Minuto == 0 && arrayTemp[N].Hora == 0;
+  return arrayTemp[N].Segundo == 0 && arrayTemp[N].Minuto == 0 && arrayTemp[N].Hora == 0;
 }
 
 void interrupt()
