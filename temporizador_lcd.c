@@ -669,6 +669,11 @@ void init_main()
   PORTB = PORTC = PORTE = 0X00;
 }
 
+isZeroTemp(int N)
+{
+ return arrayTemp[N].Segundo == 0 && arrayTemp[N].Minuto == 0 && arrayTemp[N].Hora == 0;
+}
+
 void interrupt()
 {
   // interrupciones por cambio de flanco en el PORTB
@@ -988,7 +993,7 @@ void main()
         }
       }
 
-      if (arrayTemp[0].Segundo == 0 && arrayTemp[0].Minuto == 0 && arrayTemp[0].Hora == 0 && DISPOSITIVO_1 == 1)
+      if (isZeroTemp(0) && DISPOSITIVO_1 == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_1 = 0;
@@ -1002,7 +1007,7 @@ void main()
         Lcd_Cmd(_LCD_CLEAR);
       }
 
-      if (arrayTemp[1].Segundo == 0 && arrayTemp[1].Minuto == 0 && arrayTemp[1].Hora == 0 && DISPOSITIVO_2 == 1)
+      if (isZeroTemp(1) && DISPOSITIVO_2 == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_2 = 0;
@@ -1016,7 +1021,7 @@ void main()
         Lcd_Cmd(_LCD_CLEAR);
       }
 
-      if (arrayTemp[2].Segundo == 0 && arrayTemp[2].Minuto == 0 && arrayTemp[2].Hora == 0 && DISPOSITIVO_3 == 1)
+      if (isZeroTemp(2) && DISPOSITIVO_3 == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_3 = 0;
@@ -1029,7 +1034,7 @@ void main()
           modo_reposo = 1;
       }
 
-      if (arrayTemp[3].Segundo == 0 && arrayTemp[3].Minuto == 0 && arrayTemp[3].Hora == 0 && DISPOSITIVO_4 == 1)
+      if (isZeroTemp(3) && DISPOSITIVO_4 == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_4 = 0;
