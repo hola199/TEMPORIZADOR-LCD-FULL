@@ -210,84 +210,32 @@ void mostrar_puntos()
   }
 }
 
-void cuenta_regresiva1()
+void cuenta_regresiva(int numero)
 { //configuracion/cuenta regresiva ( dispositovo1)
-  if (arrayTemp[0].Segundo > 0 || arrayTemp[0].Minuto > 0 || arrayTemp[0].Hora > 0)
+  signed short _Hora = arrayTemp[numero].Hora;
+  signed short _Minuto = arrayTemp[numero].Minuto;
+  signed short _Segundo = arrayTemp[numero].Segundo;
+
+  if (_Segundo > 0 || _Minuto > 0 || _Hora > 0)
   {
-    if (arrayTemp[0].Segundo < 0)
+    if (_Segundo < 0)
     {
-      arrayTemp[0].Minuto--;
-      arrayTemp[0].Segundo = 59;
+      _Minuto--;
+      _Segundo = 59;
     }
 
-    if (arrayTemp[0].Minuto < 0)
+    if (_Minuto < 0)
     {
-      arrayTemp[0].Hora--;
-      arrayTemp[0].Minuto = 59;
+      _Hora--;
+      _Minuto = 59;
     }
-    if (arrayTemp[0].Hora < 0)
-      arrayTemp[0].Hora = 0;
+    if (_Hora < 0)
+      _Hora = 0;
   }
-}
 
-void cuenta_regresiva2()
-{ //configuracion/cuenta regresiva(dispositivo2)
-  if (arrayTemp[1].Segundo > 0 || arrayTemp[1].Minuto > 0 || arrayTemp[1].Hora > 0)
-  {
-    if (arrayTemp[1].Segundo < 0)
-    {
-      arrayTemp[1].Minuto--;
-      arrayTemp[1].Segundo = 59;
-    }
-
-    if (arrayTemp[1].Minuto < 0)
-    {
-      arrayTemp[1].Hora--;
-      arrayTemp[1].Minuto = 59;
-    }
-    if (arrayTemp[1].Hora < 0)
-      arrayTemp[1].Hora = 0;
-  }
-}
-
-void cuenta_regresiva3()
-{ //configuracion/cuenta regresiva (dispositivo 3)
-  if (arrayTemp[2].Segundo > 0 || arrayTemp[2].Minuto > 0 || arrayTemp[2].Hora > 0)
-  {
-    if (arrayTemp[2].Segundo < 0)
-    {
-      arrayTemp[2].Minuto--;
-      arrayTemp[2].Segundo = 59;
-    }
-
-    if (arrayTemp[2].Minuto < 0)
-    {
-      arrayTemp[2].Hora--;
-      arrayTemp[2].Minuto = 59;
-    }
-    if (arrayTemp[2].Hora < 0)
-      arrayTemp[2].Hora = 0;
-  }
-}
-
-void cuenta_regresiva4()
-{ //configuracion/cuenta regresiva ( dispositivo 4)
-  if (arrayTemp[3].Segundo > 0 || arrayTemp[3].Minuto > 0 || arrayTemp[3].Hora > 0)
-  {
-    if (arrayTemp[3].Segundo < 0)
-    {
-      arrayTemp[3].Minuto--;
-      arrayTemp[3].Segundo = 59;
-    }
-
-    if (arrayTemp[3].Minuto < 0)
-    {
-      arrayTemp[3].Hora--;
-      arrayTemp[3].Minuto = 59;
-    }
-    if (arrayTemp[3].Hora < 0)
-      arrayTemp[3].Hora = 0;
-  }
+  arrayTemp[numero].Hora = _Hora;
+  arrayTemp[numero].Minuto = _Minuto;
+  arrayTemp[numero].Segundo = _Segundo;
 }
 
 void pausa()
@@ -973,7 +921,7 @@ void main()
         habilitar_parpadeo = 0;
         apagar_parpadeo = 0;
         modo_reposo = 0;
-        cuenta_regresiva1();
+        cuenta_regresiva(0);
         //apagar el temporizador para dispositivo 1
         if (N0_Temp == 0)
         {
@@ -993,7 +941,7 @@ void main()
         habilitar_parpadeo = 0;
         apagar_parpadeo = 0;
         modo_reposo = 0;
-        cuenta_regresiva2();
+        cuenta_regresiva(1);
         //apagar el temporizador para dispositivo 2
         if (N0_Temp == 1)
         {
@@ -1013,7 +961,7 @@ void main()
         habilitar_parpadeo = 0;
         apagar_parpadeo = 0;
         modo_reposo = 0;
-        cuenta_regresiva3();
+        cuenta_regresiva(2);
         //apagar el temporizador para dispositivo 3
         if (N0_Temp == 2)
         {
@@ -1033,7 +981,7 @@ void main()
         habilitar_parpadeo = 0;
         apagar_parpadeo = 0;
         modo_reposo = 0;
-        cuenta_regresiva4();
+        cuenta_regresiva(3);
         //apagar el temporizador para dispositivo 4
         if (N0_Temp == 3)
         {
