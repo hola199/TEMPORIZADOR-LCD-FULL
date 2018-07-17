@@ -136,30 +136,25 @@ void mostrar_horas()
   }
 }
 
+//funcion para visualizar segundos (edicion)
 void mostrar_segundos_temp()
-{ //funcion para visualizar segundos (edicion)
-  int decenas, unidades;
-  decenas = Temp.Segundo / 10;
-  unidades = Temp.Segundo % 10;
-  Lcd_Chr(2, 14, (unidades + 48));
-  Lcd_Chr(2, 13, (decenas + 48));
-}
-void mostrar_minutos_temp()
-{ //funcion para visualizar minutos (edicion)
-  int decenas, unidades;
-  decenas = Temp.Minuto / 10;
-  unidades = Temp.Minuto % 10;
-  Lcd_Chr(2, 11, (unidades + 48));
-  Lcd_Chr(2, 10, (decenas + 48));
+{
+  const row = 2, col = 13;
+  ver_temporizador(row, col, Temp.Segundo);
 }
 
+//funcion para visualizar minutos (edicion)
+void mostrar_minutos_temp()
+{
+  const row = 2, col = 10;
+  ver_temporizador(row, col, Temp.Minuto);
+}
+
+//funcion para visualizar horas  (edicion)
 void mostrar_horas_temp()
-{ //funcion para visualizar horas  (edicion)
-  int decenas, unidades;
-  decenas = Temp.Hora / 10;
-  unidades = Temp.Hora % 10;
-  Lcd_Chr(2, 8, (unidades + 48));
-  Lcd_Chr(2, 7, (decenas + 48));
+{
+  const row = 2, col = 7;
+  ver_temporizador(row, col, Temp.Hora);
 }
 
 void parpadear_segundos_temp()
