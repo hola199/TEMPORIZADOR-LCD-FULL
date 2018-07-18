@@ -228,35 +228,36 @@ void pausa()
   delay_ms(120);
 }
 
+void leer(int uno, int dos, int tres)
+{
+  arrayEprom[N0_temp].Segundo = EEPROM_Read(uno);
+  arrayEprom[N0_temp].Minuto = EEPROM_Read(dos);
+  arrayEprom[N0_temp].Hora = EEPROM_Read(tres);
+}
+
 //tranferir los datos de la EEPROM a vaiables de conteo
 void leer_EEPROM()
 {
-  if (N0_Temp == 0 && programa == 0)
+  if (programa == 0)
   {
-    arrayEprom[0].Segundo = EEPROM_Read(0x00);
-    arrayEprom[0].Minuto = EEPROM_Read(0x001);
-    arrayEprom[0].Hora = EEPROM_Read(0x02);
-  }
+    switch (N0_Temp)
+    {
+    case 0:
+      leer(0x00, 0x001, 0x02);
+      break;
 
-  if (N0_Temp == 1 && programa == 0)
-  {
-    arrayEprom[1].Segundo = EEPROM_Read(0x03);
-    arrayEprom[1].Minuto = EEPROM_Read(0x04);
-    arrayEprom[1].Hora = EEPROM_Read(0x05);
-  }
+    case 1:
+      leer(0x03, 0x04, 0x05);
+      break;
 
-  if (N0_Temp == 2 && programa == 0)
-  {
-    arrayEprom[2].Segundo = EEPROM_Read(0x06);
-    arrayEprom[2].Minuto = EEPROM_Read(0x07);
-    arrayEprom[2].Hora = EEPROM_Read(0x08);
-  }
+    case 2:
+      leer(0x06, 0x07, 0x08);
+      break;
 
-  if (N0_Temp == 3 && programa == 0)
-  {
-    arrayEprom[3].Segundo = EEPROM_Read(0x09);
-    arrayEprom[3].Minuto = EEPROM_Read(0x10);
-    arrayEprom[3].Hora = EEPROM_Read(0x11);
+    case 3:
+      leer(0x09, 0x10, 0x11);
+      break;
+    }
   }
 
   arrayTemp[N0_Temp] = arrayEprom[N0_Temp];
