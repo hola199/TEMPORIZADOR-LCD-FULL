@@ -230,7 +230,7 @@ void pausa()
 
 //tranferir los datos de la EEPROM a vaiables de conteo
 void leer_EEPROM()
-{ 
+{
   if (N0_Temp == 0 && programa == 0)
   {
     arrayEprom[0].Segundo = EEPROM_Read(0x00);
@@ -271,9 +271,7 @@ void grabar_EEPROM()
 {
   if (N0_temp == 0)
   {
-    arrayEprom[0].Segundo = Temp.Segundo;
-    arrayEprom[0].Minuto = Temp.Minuto;
-    arrayEprom[0].Hora = Temp.Hora;
+    arrayEprom[0] = Temp;
 
     EEPROM_Write(0x00, arrayEprom[0].Segundo);
     EEPROM_Write(0x01, arrayEprom[0].Minuto);
@@ -282,9 +280,7 @@ void grabar_EEPROM()
 
   if (N0_temp == 1)
   {
-    arrayEprom[1].Segundo = Temp.Segundo;
-    arrayEprom[1].Minuto = Temp.Minuto;
-    arrayEprom[1].Hora = Temp.Hora;
+    arrayEprom[1] = Temp;
 
     EEPROM_Write(0x03, arrayEprom[1].Segundo);
     EEPROM_Write(0x04, arrayEprom[1].Minuto);
@@ -293,9 +289,7 @@ void grabar_EEPROM()
 
   if (N0_temp == 2)
   {
-    arrayEprom[2].Segundo = Temp.Segundo;
-    arrayEprom[2].Minuto = Temp.Minuto;
-    arrayEprom[2].Hora = Temp.Hora;
+    arrayEprom[2] = Temp;
 
     EEPROM_Write(0x06, arrayEprom[2].Segundo);
     EEPROM_Write(0x07, arrayEprom[2].Minuto);
@@ -304,9 +298,7 @@ void grabar_EEPROM()
 
   if (N0_temp == 3)
   {
-    arrayEprom[3].Segundo = Temp.Segundo;
-    arrayEprom[3].Minuto = Temp.Minuto;
-    arrayEprom[3].Hora = Temp.Hora;
+    arrayEprom[3] = Temp;
 
     EEPROM_Write(0x09, arrayEprom[3].Segundo);
     EEPROM_Write(0x10, arrayEprom[3].Minuto);
