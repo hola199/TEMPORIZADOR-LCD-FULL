@@ -32,11 +32,7 @@ short programa = 0, N0_Temp = 0, estado1 = 1, estado2 = 1, estado3 = 1, estado4 
 struct Time
 {
   signed short int Segundo, Minuto, Hora;
-}
-//Variables para guardar en la EEPROm el tiempo ajustado en los temporizadores
-  E3,
-    //tiempo temporal o de modificacion
-    Temp, arrayTemp[4], arrayEprom[4];
+} Temp, arrayTemp[4], arrayEprom[4];
 
 //Mensajes a visulizar
 
@@ -270,13 +266,13 @@ void leer_EEPROM()
 
   if (N0_Temp == 3 && programa == 0)
   {
-    E3.Segundo = EEPROM_Read(0x09);
-    E3.Minuto = EEPROM_Read(0x10);
-    E3.Hora = EEPROM_Read(0x11);
+    arrayEprom[3].Segundo = EEPROM_Read(0x09);
+    arrayEprom[3].Minuto = EEPROM_Read(0x10);
+    arrayEprom[3].Hora = EEPROM_Read(0x11);
 
-    arrayTemp[3].Segundo = E3.Segundo;
-    arrayTemp[3].Minuto = E3.Minuto;
-    arrayTemp[3].Hora = E3.Hora;
+    arrayTemp[3].Segundo = arrayEprom[3].Segundo;
+    arrayTemp[3].Minuto = arrayEprom[3].Minuto;
+    arrayTemp[3].Hora = arrayEprom[3].Hora;
   }
 }
 void grabar_EEPROM()
@@ -316,13 +312,13 @@ void grabar_EEPROM()
 
   if (N0_temp == 3)
   {
-    E3.Segundo = Temp.Segundo;
-    E3.Minuto = Temp.Minuto;
-    E3.Hora = Temp.Hora;
+    arrayEprom[3].Segundo = Temp.Segundo;
+    arrayEprom[3].Minuto = Temp.Minuto;
+    arrayEprom[3].Hora = Temp.Hora;
 
-    EEPROM_Write(0x09, E3.Segundo);
-    EEPROM_Write(0x10, E3.Minuto);
-    EEPROM_Write(0x11, E3.Hora);
+    EEPROM_Write(0x09, arrayEprom[3].Segundo);
+    EEPROM_Write(0x10, arrayEprom[3].Minuto);
+    EEPROM_Write(0x11, arrayEprom[3].Hora);
   }
 }
 
@@ -537,9 +533,9 @@ void transmitir()
 
   if (N0_Temp == 3)
   {
-    Temp.Segundo = E3.Segundo;
-    Temp.Minuto = E3.Minuto;
-    Temp.Hora = E3.Hora;
+    Temp.Segundo = arrayEprom[3].Segundo;
+    Temp.Minuto = arrayEprom[3].Minuto;
+    Temp.Hora = arrayEprom[3].Hora;
   }
 }
 
