@@ -228,18 +228,16 @@ void pausa()
   delay_ms(120);
 }
 
+//tranferir los datos de la EEPROM a vaiables de conteo
 void leer_EEPROM()
-{ //tranferir los datos de la EEPROM a vaiables de conteo
-
+{ 
   if (N0_Temp == 0 && programa == 0)
   {
     arrayEprom[0].Segundo = EEPROM_Read(0x00);
     arrayEprom[0].Minuto = EEPROM_Read(0x001);
     arrayEprom[0].Hora = EEPROM_Read(0x02);
 
-    arrayTemp[0].Segundo = arrayEprom[0].Segundo;
-    arrayTemp[0].Minuto = arrayEprom[0].Minuto;
-    arrayTemp[0].Hora = arrayEprom[0].Hora;
+    arrayTemp[0] = arrayEprom[0];
   }
 
   if (N0_Temp == 1 && programa == 0)
@@ -248,9 +246,7 @@ void leer_EEPROM()
     arrayEprom[1].Minuto = EEPROM_Read(0x04);
     arrayEprom[1].Hora = EEPROM_Read(0x05);
 
-    arrayTemp[1].Segundo = arrayEprom[1].Segundo;
-    arrayTemp[1].Minuto = arrayEprom[1].Minuto;
-    arrayTemp[1].Hora = arrayEprom[1].Hora;
+    arrayTemp[1] = arrayEprom[1];
   }
 
   if (N0_Temp == 2 && programa == 0)
@@ -259,9 +255,7 @@ void leer_EEPROM()
     arrayEprom[2].Minuto = EEPROM_Read(0x07);
     arrayEprom[2].Hora = EEPROM_Read(0x08);
 
-    arrayTemp[2].Segundo = arrayEprom[2].Segundo;
-    arrayTemp[2].Minuto = arrayEprom[2].Minuto;
-    arrayTemp[2].Hora = arrayEprom[2].Hora;
+    arrayTemp[2] = arrayEprom[2];
   }
 
   if (N0_Temp == 3 && programa == 0)
@@ -270,9 +264,7 @@ void leer_EEPROM()
     arrayEprom[3].Minuto = EEPROM_Read(0x10);
     arrayEprom[3].Hora = EEPROM_Read(0x11);
 
-    arrayTemp[3].Segundo = arrayEprom[3].Segundo;
-    arrayTemp[3].Minuto = arrayEprom[3].Minuto;
-    arrayTemp[3].Hora = arrayEprom[3].Hora;
+    arrayTemp[3] = arrayEprom[3];
   }
 }
 void grabar_EEPROM()
