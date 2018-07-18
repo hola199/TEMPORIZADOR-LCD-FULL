@@ -262,36 +262,34 @@ void leer_EEPROM()
   arrayTemp[N0_Temp] = arrayEprom[N0_Temp];
 }
 
+void grabar(int uno, int dos, int tres)
+{
+  EEPROM_Write(uno, arrayEprom[N0_temp].Segundo);
+  EEPROM_Write(dos, arrayEprom[N0_temp].Minuto);
+  EEPROM_Write(tres, arrayEprom[N0_temp].Hora);
+}
+
 void grabar_EEPROM()
 {
   arrayEprom[N0_Temp] = Temp;
 
-  if (N0_temp == 0)
+  switch (N0_temp)
   {
-    EEPROM_Write(0x00, arrayEprom[0].Segundo);
-    EEPROM_Write(0x01, arrayEprom[0].Minuto);
-    EEPROM_Write(0x02, arrayEprom[0].Hora);
-  }
+  case 0:
+    grabar(0x00, 0x01, 0x02);
+    break;
 
-  if (N0_temp == 1)
-  {
-    EEPROM_Write(0x03, arrayEprom[1].Segundo);
-    EEPROM_Write(0x04, arrayEprom[1].Minuto);
-    EEPROM_Write(0x05, arrayEprom[1].Hora);
-  }
+  case 1:
+    grabar(0x03, 0x04, 0x05);
+    break;
 
-  if (N0_temp == 2)
-  {
-    EEPROM_Write(0x06, arrayEprom[2].Segundo);
-    EEPROM_Write(0x07, arrayEprom[2].Minuto);
-    EEPROM_Write(0x08, arrayEprom[2].Hora);
-  }
+  case 2:
+    grabar(0x06, 0x07, 0x08);
+    break;
 
-  if (N0_temp == 3)
-  {
-    EEPROM_Write(0x09, arrayEprom[3].Segundo);
-    EEPROM_Write(0x10, arrayEprom[3].Minuto);
-    EEPROM_Write(0x11, arrayEprom[3].Hora);
+  case 3:
+    grabar(0x09, 0x10, 0x11);
+    break;
   }
 }
 
