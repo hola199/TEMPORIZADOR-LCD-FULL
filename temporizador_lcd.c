@@ -27,7 +27,7 @@ int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt4 =
 short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
       habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
 short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
-short programa = 0, N0_Temp = 0,  estado[] = {1, 1, 1, 1},
+short programa = 0, N0_Temp = 0, estado[] = {1, 1, 1, 1},
       alarma1 = 0, alarma2 = 0, alarma3 = 0, alarma4 = 0;
 
 struct Time
@@ -622,6 +622,17 @@ void encender_dispositivo()
   }
 }
 
+void apagar_dispositivo()
+{
+  if (init_timer)
+  {
+    while (init_timer)
+      ;
+    estado[N0_Temp] = 0;
+    dispositivos[N0_Temp](0);
+  }
+}
+
 void interrupt()
 {
   // interrupciones por cambio de flanco en el PORTB
@@ -850,52 +861,28 @@ void main()
       {
         configureToStart();
         //apagar el temporizador para dispositivo 1
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          estado[0] = 0;
-          dispositivos[N0_Temp](0);
-        }
+        apagar_dispositivo();
       }
       //iniciar el temporizador para dispostivo 2
       if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 1)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 2
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          estado[1] = 0;
-          dispositivos[N0_Temp](0);
-        }
+        apagar_dispositivo();
       }
       //iniciar el temporizador para dispostivo 3
       if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 2)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 3
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          estado[2] = 0;
-          dispositivos[N0_Temp](0);
-        }
+        apagar_dispositivo();
       }
       //iniciar el temporizador para dispostivo 4
       if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 3)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 4
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          estado[3] = 0;
-          dispositivos[N0_Temp](0);
-        }
+        apagar_dispositivo();
       }
 
       if (isZeroTemp(0) && DISPOSITIVO_1 == 1)
