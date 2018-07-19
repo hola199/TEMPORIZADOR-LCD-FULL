@@ -29,7 +29,7 @@ short programa = 0, N0_Temp = 0, estado[] = {1, 1, 1, 1},
 struct Time
 {
   signed short int Segundo, Minuto, Hora;
-} Temp, arrayTemp[4], arrayEprom[4];
+} Temp, arrayTemp[3], arrayEprom[3];
 
 //Mensajes a visulizar
 char onn[] = "ONN";
