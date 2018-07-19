@@ -715,6 +715,14 @@ void interrupt()
   }
 }
 
+void configureToStart()
+{
+  habilitar_EEPROM = 0;
+  habilitar_parpadeo = 0;
+  apagar_parpadeo = 0;
+  modo_reposo = 0;
+}
+
 void main()
 {
   init_main();
@@ -818,10 +826,7 @@ void main()
       //inciar el temporizador para dispositivo 1
       if (DISPOSITIVO_1 == 1 && N0_Temp == 0)
       {
-        habilitar_EEPROM = 0;
-        habilitar_parpadeo = 0;
-        apagar_parpadeo = 0;
-        modo_reposo = 0;
+        configureToStart();
         cuenta_regresiva(0);
         //apagar el temporizador para dispositivo 1
         if (N0_Temp == 0)
@@ -838,10 +843,7 @@ void main()
       //iniciar el temporizador para dispostivo 2
       if (DISPOSITIVO_2 == 1 && N0_Temp == 1)
       {
-        habilitar_EEPROM = 0;
-        habilitar_parpadeo = 0;
-        apagar_parpadeo = 0;
-        modo_reposo = 0;
+        configureToStart();
         cuenta_regresiva(1);
         //apagar el temporizador para dispositivo 2
         if (N0_Temp == 1)
@@ -858,10 +860,7 @@ void main()
       //iniciar el temporizador para dispostivo 3
       if (DISPOSITIVO_3 == 1 && N0_Temp == 2)
       {
-        habilitar_EEPROM = 0;
-        habilitar_parpadeo = 0;
-        apagar_parpadeo = 0;
-        modo_reposo = 0;
+        configureToStart();
         cuenta_regresiva(2);
         //apagar el temporizador para dispositivo 3
         if (N0_Temp == 2)
@@ -878,10 +877,7 @@ void main()
       //iniciar el temporizador para dispostivo 4
       if (DISPOSITIVO_4 == 1 && N0_Temp == 3)
       {
-        habilitar_EEPROM = 0;
-        habilitar_parpadeo = 0;
-        apagar_parpadeo = 0;
-        modo_reposo = 0;
+        configureToStart();
         cuenta_regresiva(3);
         //apagar el temporizador para dispositivo 4
         if (N0_Temp == 3)
