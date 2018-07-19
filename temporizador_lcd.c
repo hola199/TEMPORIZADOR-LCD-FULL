@@ -508,6 +508,13 @@ void reposar_pic()
   }
 }
 
+void blink_led_alarma()
+{
+  LED_ALARMA = 1;
+  delay_ms(50);
+  LED_ALARMA = 0;
+}
+
 void alarma()
 {
   modo_reposo = 0;
@@ -515,27 +522,23 @@ void alarma()
   {
     Lcd_Out(1, 2, "              ");
 
-    if (alarmas[0])
-      Lcd_Out(1, 2, "Temporizador 1");
-    else if (alarmas[1])
-      Lcd_Out(1, 2, "Temporizador 2");
-    else if (alarmas[2])
-      Lcd_Out(1, 2, "Temporizador 3");
-    else if (alarmas[3])
-      Lcd_Out(1, 2, "Temporizador 4");
+    for (ii = 0; ii < 4; ii++)
+    {
+      if (alarmas[ii])
+      {
+        Lcd_Out(1, 2, "Temporizador");
+        Lcd_Chr(1, 15, ii + 48);
+      }
+    }
 
-    LED_ALARMA = 1;
-    delay_ms(50);
-    LED_ALARMA = 0;
+    blink_led_alarma();
   }
 
   if (nn == 2)
   {
     Lcd_Out(1, 2, "              ");
     Lcd_Out(1, 4, "Finalizado.");
-    LED_ALARMA = 1;
-    delay_ms(50);
-    LED_ALARMA = 0;
+    blink_led_alarma();
   }
   if (Inc)
   {
