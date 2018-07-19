@@ -515,6 +515,7 @@ void blink_led_alarma()
   LED_ALARMA = 0;
 }
 
+
 void alarma()
 {
   modo_reposo = 0;
@@ -622,7 +623,6 @@ void encender_dispositivo()
   if (init_timer)
   {
     while (init_timer)
-      ;
     dispositivos[N0_Temp](1);
   }
 }
@@ -632,7 +632,6 @@ void apagar_dispositivo()
   if (init_timer)
   {
     while (init_timer)
-      ;
     estado[N0_Temp] = 0;
     dispositivos[N0_Temp](0);
   }
@@ -845,7 +844,6 @@ void main()
       if (OK)
       {
         while (OK)
-          ;
         Lcd_Cmd(_LCD_CLEAR);
         programa = 1;
       }
@@ -901,7 +899,6 @@ void main()
         if (Dec)
         {
           while (Dec)
-            ;
           Lcd_Cmd(_lCD_CLEAR);
           h = 0;
         }
@@ -909,7 +906,6 @@ void main()
         if (OK)
         {
           while (OK)
-            ;
           Lcd_Cmd(_lCD_CLEAR);
           programa = 4;
         }
@@ -923,7 +919,6 @@ void main()
         if (Inc)
         { // regresar a, configurar la alarma
           while (Inc)
-            ;
           Lcd_Cmd(_lCD_CLEAR);
           h = 1;
         }
@@ -931,7 +926,6 @@ void main()
         if (OK)
         { // Confirmacion para configurar los temporizadores
           while (OK)
-            ;
           Lcd_Cmd(_lCD_CLEAR);
           programa = 2;
         }
@@ -940,7 +934,6 @@ void main()
       if (init_timer)
       {
         while (init_timer)
-          ;
         Lcd_Cmd(_LCD_CLEAR);
         programa = 0;
       }
@@ -955,7 +948,6 @@ void main()
       if (OK)
       {
         while (OK)
-          ;
         Lcd_Cmd(_LCD_CLEAR);
         programa = 3;
         transmitir();
@@ -964,7 +956,6 @@ void main()
       if (init_timer)
       {
         while (init_timer)
-          ;
         Lcd_Cmd(_LCD_CLEAR);
         programa = 1;
       }
@@ -980,7 +971,6 @@ void main()
       if (OK)
       {
         while (OK)
-          ;
         selector++;
         if (selector > 2)
           selector = 0;
@@ -1019,7 +1009,6 @@ void main()
       if (init_timer)
       {
         while (init_timer)
-          ;
         Lcd_Cmd(_LCD_CLEAR);
         programa = 2;
       }
@@ -1035,7 +1024,6 @@ void main()
         if (Dec || OK)
         {
           while (Dec || OK)
-            ;
           Lcd_Cmd(_LCD_CLEAR);
           habilitar_alarma = 0;
           EEPROM_Write(0X12, habilitar_alarma);
@@ -1047,7 +1035,6 @@ void main()
         if (Inc || OK)
         {
           while (Inc || OK)
-            ;
           Lcd_Cmd(_LCD_CLEAR);
           habilitar_alarma = 1;
           EEPROM_Write(0X12, habilitar_alarma);
@@ -1057,7 +1044,6 @@ void main()
       if (init_timer)
       {
         while (init_timer)
-          ;
         Lcd_Cmd(_LCD_CLEAR);
         programa = 1;
       }
