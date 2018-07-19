@@ -354,9 +354,8 @@ void visualizar_N0_Timer2()
 
 void Inc_Timer()
 {
-  switch (selector)
-  { //cada estado de "selector" decrementa una variable
-
+  switch (selector) //cada estado de "selector" decrementa una variable
+  {
   case 0:
     pausa();
     Temp.Segundo++;
@@ -435,9 +434,8 @@ void blink_led_alarma()
 void reset_alarma()
 {
   for (ii = 0; ii < 4; ii++)
-  {
     alarmas[ii] = 0;
-  }
+
   Lcd_Cmd(_LCD_CLEAR);
 }
 
