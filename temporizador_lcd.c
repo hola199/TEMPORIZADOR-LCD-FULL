@@ -298,7 +298,6 @@ void Inc_Dec_N0Timer()
   if (Dec)
   {
     while (Dec)
-      ;
     Lcd_Cmd(_LCD_CLEAR);
     N0_Temp--;
     if (N0_Temp < 0)
@@ -480,28 +479,20 @@ void alarma()
   }
 
   if (Inc)
-  {
     while (Inc)
       reset_alarma();
-  }
 
   if (Dec)
-  {
     while (Dec)
       reset_alarma();
-  }
 
   if (OK)
-  {
     while (OK)
       reset_alarma();
-  }
 
   if (Init_timer)
-  {
     while (Init_timer)
       reset_alarma();
-  }
 }
 
 //funcion para visualizar los textos "Temporizador" y "Reprogramable"
