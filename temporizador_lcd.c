@@ -613,7 +613,9 @@ isZeroTemp(int N)
 
 void encender_dispositivo()
 {
-  habilitar_EEPROM = 1;
+  if (estado[N0_Temp] == 1)
+    habilitar_EEPROM = 1;
+    
   if (init_timer)
   {
     while (init_timer)
@@ -834,26 +836,22 @@ void main()
       //Encender dispositivo 1
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 0)
       {
-        if (estado[0] == 1)
-          encender_dispositivo();
+        encender_dispositivo();
       }
       //Encender dispostivo 2
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 1)
       {
-        if (estado[1] == 1)
-          encender_dispositivo();
+        encender_dispositivo();
       }
       //Encender dispostivo 3
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 2)
       {
-        if (estado[2] == 1)
-          encender_dispositivo();
+        encender_dispositivo();
       }
       //Encender dispositivo 4
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 3)
       {
-        if (estado[3] == 1)
-          encender_dispositivo();
+        encender_dispositivo();
       }
 
       //inciar el temporizador para dispositivo 1
