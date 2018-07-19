@@ -570,42 +570,43 @@ void apagar_dispositivo()
     dispositivos[N0_Temp](0);
   }
 }
+void desactivar_reposo()
+{
+  modo_reposo = 0;
+  cnt2 = 0;
+}
 
 void interrupt()
 {
   // interrupciones por cambio de flanco en el PORTB
   if (Button(&PORTB, 4, 1, 0))
   {
-    modo_reposo = 0;
+    desactivar_reposo();
     Inc = 1;
-    cnt2 = 0;
   }
   else
     Inc = 0;
 
   if (Button(&PORTB, 5, 1, 0))
   {
-    modo_reposo = 0;
+    desactivar_reposo();
     Dec = 1;
-    cnt2 = 0;
   }
   else
     Dec = 0;
 
   if (Button(&PORTB, 6, 1, 0))
   {
-    modo_reposo = 0;
+    desactivar_reposo();
     OK = 1;
-    cnt2 = 0;
   }
   else
     OK = 0;
 
   if (Button(&PORTB, 7, 1, 0))
   {
-    modo_reposo = 0;
+    desactivar_reposo();
     init_timer = 1;
-    cnt2 = 0;
   }
   else
     init_timer = 0;
