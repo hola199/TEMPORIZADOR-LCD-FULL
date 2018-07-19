@@ -18,7 +18,7 @@ sbit DISPOSITIVO_2 at RC1_bit;
 sbit DISPOSITIVO_3 at RC2_bit;
 sbit DISPOSITIVO_4 at RC4_bit;
 
-short  j,  activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0;
+short j, activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0;
 int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt_alarma = 0, ii; // todo los contadores son de tipo int
 short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
       habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
@@ -345,16 +345,11 @@ void LCD_N0_Timer(int N)
 
 void visualizar_N0_Timer2()
 {
+  LCD_N0_Timer(N0_temp);
   if (N0_temp == 3)
-  {
-    LCD_N0_Timer(N0_temp);
     Lcd_Chr(1, 14, '<');
-  }
   else
-  {
-    LCD_N0_Timer(N0_temp);
     Lcd_Chr(1, 14, '>');
-  }
 }
 
 void Inc_Timer()
