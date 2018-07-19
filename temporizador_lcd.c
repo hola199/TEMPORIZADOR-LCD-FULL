@@ -466,33 +466,7 @@ void Dec_Timer()
 
 void transmitir()
 {
-  if (N0_Temp == 0)
-  {
-    Temp.Segundo = arrayEprom[0].Segundo;
-    Temp.Minuto = arrayEprom[0].Minuto;
-    Temp.Hora = arrayEprom[0].Hora;
-  }
-
-  if (N0_Temp == 1)
-  {
-    Temp.Segundo = arrayEprom[1].Segundo;
-    Temp.Minuto = arrayEprom[1].Minuto;
-    Temp.Hora = arrayEprom[1].Hora;
-  }
-
-  if (N0_Temp == 2)
-  {
-    Temp.Segundo = arrayEprom[2].Segundo;
-    Temp.Minuto = arrayEprom[2].Minuto;
-    Temp.Hora = arrayEprom[2].Hora;
-  }
-
-  if (N0_Temp == 3)
-  {
-    Temp.Segundo = arrayEprom[3].Segundo;
-    Temp.Minuto = arrayEprom[3].Minuto;
-    Temp.Hora = arrayEprom[3].Hora;
-  }
+ Temp = arrayEprom[N0_Temp];
 }
 
 void reposar_pic()
@@ -549,7 +523,7 @@ void alarma()
     Lcd_Out(1, 4, "Finalizado.");
     blink_led_alarma();
   }
-  
+
   if (Inc)
   {
     while (Inc)
@@ -559,13 +533,13 @@ void alarma()
   if (Dec)
   {
     while (Dec)
-    reset_alarma();
+      reset_alarma();
   }
 
   if (OK)
   {
     while (OK)
-     reset_alarma();
+      reset_alarma();
   }
 
   if (Init_timer)
