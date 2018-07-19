@@ -782,6 +782,20 @@ void configureToStart()
   cuenta_regresiva(N0_Temp);
 }
 
+void encender_alarma()
+{
+  habilitar_EEPROM = 1; // habilitar leer la EEPROM
+  dispositivos[N0_Temp](0);
+  if (habilitar_alarma == 1)
+  {
+    alarmas[N0_Temp] = 1;
+  }
+  else
+    modo_reposo = 1;
+  cnt_alarma = 0;
+  Lcd_Cmd(_LCD_CLEAR);
+}
+
 void main()
 {
   init_main();
@@ -885,56 +899,22 @@ void main()
 
       if (isZeroTemp(0) && dispositivos[0](3) == 1)
       {
-        habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        dispositivos[N0_Temp](0);
-        if (habilitar_alarma == 1)
-        {
-          alarmas[0] = 1;
-        }
-        else
-          modo_reposo = 1;
-        cnt_alarma = 0;
-        Lcd_Cmd(_LCD_CLEAR);
+        encender_alarma();
       }
 
       if (isZeroTemp(1) && dispositivos[1](3) == 1)
       {
-        habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        dispositivos[N0_Temp](0);
-        if (habilitar_alarma == 1)
-        {
-          alarmas[1] = 1;
-        }
-        else
-          modo_reposo = 1;
-        cnt_alarma = 0;
-        Lcd_Cmd(_LCD_CLEAR);
+        encender_alarma();
       }
 
       if (isZeroTemp(2) && dispositivos[2](3) == 1)
       {
-        habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        dispositivos[N0_Temp](0);
-        modo_reposo = 1;
-        if (habilitar_alarma == 1)
-        {
-          alarmas[2] = 1;
-        }
-        else
-          modo_reposo = 1;
+        encender_alarma();
       }
 
       if (isZeroTemp(3) && dispositivos[3](3) == 1)
       {
-        habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        dispositivos[N0_Temp](0);
-        modo_reposo = 1;
-        if (habilitar_alarma == 1)
-        {
-          alarmas[3] = 1;
-        }
-        else
-          modo_reposo = 1;
+        encender_alarma();
       }
 
       if (alarmas[0] == 1 || alarmas[1] == 1 || alarmas[2] == 1 || alarmas[3] == 1)
