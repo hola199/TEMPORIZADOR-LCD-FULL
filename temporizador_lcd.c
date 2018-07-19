@@ -1,4 +1,3 @@
-
 //////////////////////declaracion de conexiones para la lcd
 sbit LCD_RS at RD0_bit;
 sbit LCD_EN at RD1_bit;
@@ -12,18 +11,15 @@ sbit LCD_D4_Direction at TRISD2_bit;
 sbit LCD_D5_Direction at TRISD3_bit;
 sbit LCD_D6_Direction at TRISD4_bit;
 sbit LCD_D7_Direction at TRISD5_bit;
-/////////////////final de la declaracion de conexiones para la lcd
+
 sbit LED_ALARMA at RE0_bit;
 sbit DISPOSITIVO_1 at RC0_bit;
 sbit DISPOSITIVO_2 at RC1_bit;
 sbit DISPOSITIVO_3 at RC2_bit;
 sbit DISPOSITIVO_4 at RC4_bit;
 
-/////////////////////////////////////////////variables
-signed short int segundos = 0, minutos = 0, horas = 0;
-
-short decrementar = 0, j, k = 0, activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0, py = 0;
-int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt_alarma = 0, ii; // todo los contadores son de tipo int
+short  j,  activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0;
+int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt_alarma = 0, ii; // todo los contadores son de tipo int
 short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
       habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
 short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
@@ -36,7 +32,6 @@ struct Time
 } Temp, arrayTemp[4], arrayEprom[4];
 
 //Mensajes a visulizar
-
 char onn[] = "ONN";
 char off[] = "OFF";
 
