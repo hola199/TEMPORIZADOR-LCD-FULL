@@ -721,6 +721,7 @@ void configureToStart()
   habilitar_parpadeo = 0;
   apagar_parpadeo = 0;
   modo_reposo = 0;
+  cuenta_regresiva(N0_Temp);
 }
 
 void main()
@@ -827,7 +828,6 @@ void main()
       if (DISPOSITIVO_1 == 1 && N0_Temp == 0)
       {
         configureToStart();
-        cuenta_regresiva(0);
         //apagar el temporizador para dispositivo 1
         if (N0_Temp == 0)
         {
@@ -844,7 +844,6 @@ void main()
       if (DISPOSITIVO_2 == 1 && N0_Temp == 1)
       {
         configureToStart();
-        cuenta_regresiva(1);
         //apagar el temporizador para dispositivo 2
         if (N0_Temp == 1)
         {
@@ -861,7 +860,6 @@ void main()
       if (DISPOSITIVO_3 == 1 && N0_Temp == 2)
       {
         configureToStart();
-        cuenta_regresiva(2);
         //apagar el temporizador para dispositivo 3
         if (N0_Temp == 2)
         {
@@ -878,7 +876,6 @@ void main()
       if (DISPOSITIVO_4 == 1 && N0_Temp == 3)
       {
         configureToStart();
-        cuenta_regresiva(3);
         //apagar el temporizador para dispositivo 4
         if (N0_Temp == 3)
         {
