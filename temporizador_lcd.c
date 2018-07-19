@@ -883,7 +883,7 @@ void main()
         apagar_dispositivo();
       }
 
-      if (isZeroTemp(0) && DISPOSITIVO_1 == 1)
+      if (isZeroTemp(0) && dispositivos[0](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_1 = 0;
@@ -897,7 +897,7 @@ void main()
         Lcd_Cmd(_LCD_CLEAR);
       }
 
-      if (isZeroTemp(1) && DISPOSITIVO_2 == 1)
+      if (isZeroTemp(1) && dispositivos[1](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_2 = 0;
@@ -911,7 +911,7 @@ void main()
         Lcd_Cmd(_LCD_CLEAR);
       }
 
-      if (isZeroTemp(2) && DISPOSITIVO_3 == 1)
+      if (isZeroTemp(2) && dispositivos[2](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_3 = 0;
@@ -924,7 +924,7 @@ void main()
           modo_reposo = 1;
       }
 
-      if (isZeroTemp(3) && DISPOSITIVO_4 == 1)
+      if (isZeroTemp(3) && dispositivos[3](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
         DISPOSITIVO_4 = 0;
