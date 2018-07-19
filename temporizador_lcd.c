@@ -27,7 +27,7 @@ int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt4 =
 short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
       habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
 short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
-short programa = 0, N0_Temp = 0, estado1 = 1, estado2 = 1, estado3 = 1, estado4 = 1,
+short programa = 0, N0_Temp = 0,  estado[] = {1, 1, 1, 1},
       alarma1 = 0, alarma2 = 0, alarma3 = 0, alarma4 = 0;
 
 struct Time
@@ -823,25 +823,25 @@ void main()
       //Encender dispositivo 1
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 0)
       {
-        if (estado1 == 1)
+        if (estado[0] == 1)
           encender_dispositivo();
       }
       //Encender dispostivo 2
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 1)
       {
-        if (estado2 == 1)
+        if (estado[1] == 1)
           encender_dispositivo();
       }
       //Encender dispostivo 3
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 2)
       {
-        if (estado3 == 1)
+        if (estado[2] == 1)
           encender_dispositivo();
       }
       //Encender dispositivo 4
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 3)
       {
-        if (estado4 == 1)
+        if (estado[3] == 1)
           encender_dispositivo();
       }
 
@@ -854,8 +854,8 @@ void main()
         {
           while (init_timer)
             ;
-          estado1 = 0;
-          DISPOSITIVO_1 = 0;
+          estado[0] = 0;
+          dispositivos[N0_Temp](0);
         }
       }
       //iniciar el temporizador para dispostivo 2
@@ -867,8 +867,8 @@ void main()
         {
           while (init_timer)
             ;
-          estado2 = 0;
-          DISPOSITIVO_2 = 0;
+          estado[1] = 0;
+          dispositivos[N0_Temp](0);
         }
       }
       //iniciar el temporizador para dispostivo 3
@@ -880,8 +880,8 @@ void main()
         {
           while (init_timer)
             ;
-          estado3 = 0;
-          DISPOSITIVO_3 = 0;
+          estado[2] = 0;
+          dispositivos[N0_Temp](0);
         }
       }
       //iniciar el temporizador para dispostivo 4
@@ -893,8 +893,8 @@ void main()
         {
           while (init_timer)
             ;
-          estado4 = 0;
-          DISPOSITIVO_4 = 0;
+          estado[3] = 0;
+          dispositivos[N0_Temp](0);
         }
       }
 
