@@ -278,36 +278,35 @@ void grabar_EEPROM()
   }
 }
 
+void reposar()
+{
+  if (DISPOSITIVO_1 == 0 && DISPOSITIVO_2 == 0 && DISPOSITIVO_3 && DISPOSITIVO_4 == 0)
+    modo_reposo = 1;
+}
+
 void Inc_Dec_N0Timer()
 {
   if (Inc)
   {
     while (Inc)
-      ;
-    Lcd_Cmd(_LCD_CLEAR);
+      Lcd_Cmd(_LCD_CLEAR);
     N0_Temp++;
     if (N0_Temp > 3)
       N0_Temp = 3;
   }
   else
-  {
-    if (DISPOSITIVO_1 == 0 && DISPOSITIVO_2 == 0 && DISPOSITIVO_3 && DISPOSITIVO_4 == 0)
-      modo_reposo = 1;
-  }
+    reposar();
 
   if (Dec)
   {
     while (Dec)
-    Lcd_Cmd(_LCD_CLEAR);
+      Lcd_Cmd(_LCD_CLEAR);
     N0_Temp--;
     if (N0_Temp < 0)
       N0_Temp = 0;
   }
   else
-  {
-    if (DISPOSITIVO_1 == 0 && DISPOSITIVO_2 == 0 && DISPOSITIVO_3 && DISPOSITIVO_4 == 0)
-      modo_reposo = 1;
-  }
+    reposar();
 }
 
 void Lcd_N_Timer(int row, int col, int N0_Temp)
