@@ -23,7 +23,7 @@ sbit DISPOSITIVO_4 at RC4_bit;
 signed short int segundos = 0, minutos = 0, horas = 0;
 
 short decrementar = 0, j, k = 0, activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0, py = 0;
-int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt_alarma = 0; // todo los contadores son de tipo int
+int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt_alarma = 0, ii; // todo los contadores son de tipo int
 short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
       habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
 short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
@@ -897,24 +897,12 @@ void main()
         apagar_dispositivo();
       }
 
-      if (isZeroTemp(0) && dispositivos[0](3) == 1)
+      for (ii = 0; ii < 4; ii++)
       {
-        encender_alarma();
-      }
-
-      if (isZeroTemp(1) && dispositivos[1](3) == 1)
-      {
-        encender_alarma();
-      }
-
-      if (isZeroTemp(2) && dispositivos[2](3) == 1)
-      {
-        encender_alarma();
-      }
-
-      if (isZeroTemp(3) && dispositivos[3](3) == 1)
-      {
-        encender_alarma();
+        if (isZeroTemp(ii) && dispositivos[ii](3) == 1)
+        {
+          encender_alarma();
+        }
       }
 
       if (alarmas[0] == 1 || alarmas[1] == 1 || alarmas[2] == 1 || alarmas[3] == 1)
