@@ -611,6 +611,17 @@ isZeroTemp(int N)
   return arrayTemp[N].Segundo == 0 && arrayTemp[N].Minuto == 0 && arrayTemp[N].Hora == 0;
 }
 
+void encender_dispositivo()
+{
+  habilitar_EEPROM = 1;
+  if (init_timer)
+  {
+    while (init_timer)
+      ;
+    dispositivos[N0_Temp](1);
+  }
+}
+
 void interrupt()
 {
   // interrupciones por cambio de flanco en el PORTB
@@ -813,49 +824,25 @@ void main()
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 0)
       {
         if (estado1 == 1)
-          habilitar_EEPROM = 1;
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          dispositivos[N0_Temp](1);
-        }
+          encender_dispositivo();
       }
       //Encender dispostivo 2
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 1)
       {
         if (estado2 == 1)
-          habilitar_EEPROM = 1;
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          dispositivos[N0_Temp](1);
-        }
+          encender_dispositivo();
       }
       //Encender dispostivo 3
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 2)
       {
         if (estado3 == 1)
-          habilitar_EEPROM = 1;
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          dispositivos[N0_Temp](1);
-        }
+          encender_dispositivo();
       }
       //Encender dispositivo 4
       if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 3)
       {
         if (estado4 == 1)
-          habilitar_EEPROM = 1;
-        if (init_timer)
-        {
-          while (init_timer)
-            ;
-          dispositivos[N0_Temp](1);
-        }
+          encender_dispositivo();
       }
 
       //inciar el temporizador para dispositivo 1
