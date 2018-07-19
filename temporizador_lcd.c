@@ -28,7 +28,7 @@ short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
       habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
 short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
 short programa = 0, N0_Temp = 0, estado[] = {1, 1, 1, 1},
-      alarma1 = 0, alarma2 = 0, alarma3 = 0, alarma4 = 0;
+      alarmas[] = {0, 0, 0, 0};
 
 struct Time
 {
@@ -515,13 +515,13 @@ void alarma()
   {
     Lcd_Out(1, 2, "              ");
 
-    if (alarma1)
+    if (alarmas[0])
       Lcd_Out(1, 2, "Temporizador 1");
-    else if (alarma2)
+    else if (alarmas[1])
       Lcd_Out(1, 2, "Temporizador 2");
-    else if (alarma3)
+    else if (alarmas[2])
       Lcd_Out(1, 2, "Temporizador 3");
-    else if (alarma4)
+    else if (alarmas[3])
       Lcd_Out(1, 2, "Temporizador 4");
 
     LED_ALARMA = 1;
@@ -540,28 +540,28 @@ void alarma()
   if (Inc)
   {
     while (Inc)
-      alarma1 = alarma2 = 0;
+      alarmas[0] = alarmas[1] = 0;
     Lcd_Cmd(_LCD_CLEAR);
   }
 
   if (Dec)
   {
     while (Dec)
-      alarma1 = alarma2 = 0;
+      alarmas[0] = alarmas[1] = 0;
     Lcd_Cmd(_LCD_CLEAR);
   }
 
   if (OK)
   {
     while (OK)
-      alarma1 = alarma2 = 0;
+      alarmas[0] = alarmas[1] = 0;
     Lcd_Cmd(_LCD_CLEAR);
   }
 
   if (Init_timer)
   {
     while (Init_timer)
-      alarma1 = alarma2 = 0;
+      alarmas[0] = alarmas[1] = 0;
     Lcd_Cmd(_LCD_CLEAR);
   }
 }
@@ -741,12 +741,12 @@ void interrupt()
         }
       }
       // contador para apagar la alarma
-      if (alarma1 == 1 || alarma2 == 1 || alarma3 == 1 || alarma4 == 1)
+      if (alarmas[0] == 1 || alarmas[1] == 1 || alarmas[2] == 1 || alarmas[3] == 1)
       {
         cnt_alarma++;
         if (cnt_alarma == 300)
         {
-          alarma1 = alarma2 = alarma3 = alarma4 = 0;
+          alarmas[0] = alarmas[1] = alarmas[2] = alarmas[3] = 0;
           cnt_alarma = 0;
           modo_reposo = 1;
           clear = 1;
@@ -815,7 +815,7 @@ void main()
       mostrar_minutos();
       mostrar_horas();
 
-      if (alarma1 == 0 && alarma2 == 0 && alarma3 == 0 && alarma4 == 0)
+      if (alarmas[0] == 0 && alarmas[1] == 0 && alarmas[2] == 0 && alarmas[3] == 0)
       {
         visualizar_N0_timer(); //visualizar numero de dispositivo
         nn = 1;
@@ -889,7 +889,7 @@ void main()
         dispositivos[N0_Temp](0);
         if (habilitar_alarma == 1)
         {
-          alarma1 = 1;
+          alarmas[0] = 1;
         }
         else
           modo_reposo = 1;
@@ -903,7 +903,7 @@ void main()
         dispositivos[N0_Temp](0);
         if (habilitar_alarma == 1)
         {
-          alarma2 = 1;
+          alarmas[1] = 1;
         }
         else
           modo_reposo = 1;
@@ -918,7 +918,7 @@ void main()
         modo_reposo = 1;
         if (habilitar_alarma == 1)
         {
-          alarma3 = 1;
+          alarmas[2] = 1;
         }
         else
           modo_reposo = 1;
@@ -931,13 +931,13 @@ void main()
         modo_reposo = 1;
         if (habilitar_alarma == 1)
         {
-          alarma4 = 1;
+          alarmas[3] = 1;
         }
         else
           modo_reposo = 1;
       }
 
-      if (alarma1 == 1 || alarma2 == 1 || alarma3 == 1 || alarma4 == 1)
+      if (alarmas[0] == 1 || alarmas[1] == 1 || alarmas[2] == 1 || alarmas[3] == 1)
       {
         apagar_parpadeo = 0;
         modo_reposo = 0;
