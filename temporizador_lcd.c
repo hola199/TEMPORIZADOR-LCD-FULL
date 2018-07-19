@@ -322,69 +322,24 @@ void visualizar_N0_Timer()
   const row = 1, col = 2;
   Lcd_N_Timer(row, col, N0_temp);
 
-  switch (N0_Temp)
+  for (ii = 0; ii < 4; ii++)
   {
-  case 0:
-    // activar los dos puntos : cuando el DISPOSITIVO este en 1
-    if (DISPOSITIVO_1 == 1)
-      habilitar_puntos = 1;
-    else
+    if (N0_Temp == ii)
     {
-      habilitar_puntos = 0;
-      activar = 1;
+      // permitir parpadear los dos puntos : cuando el DISPOSITIVO este en 1
+      if (dispositivos[N0_Temp](3) == 1)
+        habilitar_puntos = 1;
+      else
+      {
+        habilitar_puntos = 0;
+        activar = 1;
+      }
+      //visualizar el estado del dispositivo
+      if (dispositivos[N0_Temp](3) == 1)
+        Lcd_Out(2, 2, onn);
+      else
+        Lcd_Out(2, 2, off);
     }
-    //visualizar el estado del dispositivo
-    if (DISPOSITIVO_1 == 1)
-      Lcd_Out(2, 2, onn);
-    else
-      Lcd_Out(2, 2, off);
-
-    break;
-
-  case 1:
-    if (DISPOSITIVO_2 == 1)
-      habilitar_puntos = 1;
-    else
-      habilitar_puntos = 0;
-
-    if (DISPOSITIVO_2 == 1)
-      Lcd_Out(2, 2, onn);
-    else
-    {
-      Lcd_Out(2, 2, off);
-      activar = 1;
-    }
-    break;
-
-  case 2:
-    if (DISPOSITIVO_3 == 1)
-      habilitar_puntos = 1;
-    else
-    {
-      habilitar_puntos = 0;
-      activar = 1;
-    }
-    if (DISPOSITIVO_3 == 1)
-      Lcd_Out(2, 2, onn);
-    else
-      Lcd_Out(2, 2, off);
-
-    break;
-
-  case 3:
-    if (DISPOSITIVO_4 == 1)
-      habilitar_puntos = 1;
-    else
-    {
-      habilitar_puntos = 0;
-      activar = 1;
-    }
-    if (DISPOSITIVO_4 == 1)
-      Lcd_Out(2, 2, onn);
-    else
-      Lcd_Out(2, 2, off);
-
-    break;
   }
 }
 
@@ -466,7 +421,7 @@ void Dec_Timer()
 
 void transmitir()
 {
- Temp = arrayEprom[N0_Temp];
+  Temp = arrayEprom[N0_Temp];
 }
 
 void reposar_pic()
