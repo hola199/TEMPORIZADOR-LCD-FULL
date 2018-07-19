@@ -46,6 +46,32 @@ char temporizadores[] = "TEMPORIZADORES";
 char activado[] = "ACTIVADO";
 char desactivado[] = "DESACTIVADO";
 
+int disp1(int estado)
+{
+  RC0_bit = estado;
+}
+
+int disp2(int estado)
+{
+  RC1_bit = estado;
+}
+
+int disp3(int estado)
+{
+  RC2_bit = estado;
+}
+
+int disp4(int estado)
+{
+  RC4_bit = estado;
+}
+
+int (*dispositivos[])(int) = {disp1, disp2, disp3, disp4};
+
+void start()
+{
+}
+
 void ver_temporizador(int row, int col, int minuto)
 {
   int decenas, unidades;
@@ -784,7 +810,7 @@ void main()
         {
           while (init_timer)
             ;
-          DISPOSITIVO_1 = 1;
+          dispositivos[N0_Temp](1);
         }
       }
       //Encender dispostivo 2
@@ -796,7 +822,7 @@ void main()
         {
           while (init_timer)
             ;
-          DISPOSITIVO_2 = 1;
+          dispositivos[N0_Temp](1);
         }
       }
       //Encender dispostivo 3
@@ -808,7 +834,7 @@ void main()
         {
           while (init_timer)
             ;
-          DISPOSITIVO_3 = 1;
+          dispositivos[N0_Temp](1);
         }
       }
       //Encender dispositivo 4
@@ -820,7 +846,7 @@ void main()
         {
           while (init_timer)
             ;
-          DISPOSITIVO_4 = 1;
+          dispositivos[N0_Temp](1);
         }
       }
 
