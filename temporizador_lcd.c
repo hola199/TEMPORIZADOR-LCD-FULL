@@ -847,25 +847,13 @@ void main()
         programa = 1;
       }
 
-      //Encender dispositivo 1
-      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 0)
+      //Encender DISPOSITIVO
+      for (ii = 0; ii < 4; ii++)
       {
-        encender_dispositivo();
-      }
-      //Encender dispostivo 2
-      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 1)
-      {
-        encender_dispositivo();
-      }
-      //Encender dispostivo 3
-      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 2)
-      {
-        encender_dispositivo();
-      }
-      //Encender dispositivo 4
-      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 3)
-      {
-        encender_dispositivo();
+        if (dispositivos[ii](3) == 0 && N0_Temp == ii)
+        {
+          encender_dispositivo();
+        }
       }
 
       //apagar el temporizador para dispositivos
