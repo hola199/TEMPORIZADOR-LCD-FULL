@@ -615,7 +615,7 @@ void encender_dispositivo()
 {
   if (estado[N0_Temp] == 1)
     habilitar_EEPROM = 1;
-    
+
   if (init_timer)
   {
     while (init_timer)
@@ -883,10 +883,10 @@ void main()
         apagar_dispositivo();
       }
 
-      if (isZeroTemp(0) && DISPOSITIVO_1 == 1)
+      if (isZeroTemp(0) && dispositivos[N0_Temp](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        DISPOSITIVO_1 = 0;
+        dispositivos[N0_Temp](0);
         if (habilitar_alarma == 1)
         {
           alarma1 = 1;
@@ -897,10 +897,10 @@ void main()
         Lcd_Cmd(_LCD_CLEAR);
       }
 
-      if (isZeroTemp(1) && DISPOSITIVO_2 == 1)
+      if (isZeroTemp(1) && dispositivos[N0_Temp](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        DISPOSITIVO_2 = 0;
+        dispositivos[N0_Temp](0);
         if (habilitar_alarma == 1)
         {
           alarma2 = 1;
@@ -911,10 +911,10 @@ void main()
         Lcd_Cmd(_LCD_CLEAR);
       }
 
-      if (isZeroTemp(2) && DISPOSITIVO_3 == 1)
+      if (isZeroTemp(2) && dispositivos[N0_Temp](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        DISPOSITIVO_3 = 0;
+        dispositivos[N0_Temp](0);
         modo_reposo = 1;
         if (habilitar_alarma == 1)
         {
@@ -924,10 +924,10 @@ void main()
           modo_reposo = 1;
       }
 
-      if (isZeroTemp(3) && DISPOSITIVO_4 == 1)
+      if (isZeroTemp(3) && dispositivos[N0_Temp](3) == 1)
       {
         habilitar_EEPROM = 1; // habilitar leer la EEPROM
-        DISPOSITIVO_4 = 0;
+        dispositivos[N0_Temp](0);
         modo_reposo = 1;
         if (habilitar_alarma == 1)
         {
