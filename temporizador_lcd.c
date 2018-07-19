@@ -850,15 +850,12 @@ void main()
       {
         configureToStart();
         //apagar el temporizador para dispositivo 1
-        if (N0_Temp == 0)
+        if (init_timer)
         {
-          if (init_timer)
-          {
-            while (init_timer)
-              ;
-            estado1 = 0;
-            DISPOSITIVO_1 = 0;
-          }
+          while (init_timer)
+            ;
+          estado1 = 0;
+          DISPOSITIVO_1 = 0;
         }
       }
       //iniciar el temporizador para dispostivo 2
@@ -866,15 +863,12 @@ void main()
       {
         configureToStart();
         //apagar el temporizador para dispositivo 2
-        if (N0_Temp == 1)
+        if (init_timer)
         {
-          if (init_timer)
-          {
-            while (init_timer)
-              ;
-            estado2 = 0;
-            DISPOSITIVO_2 = 0;
-          }
+          while (init_timer)
+            ;
+          estado2 = 0;
+          DISPOSITIVO_2 = 0;
         }
       }
       //iniciar el temporizador para dispostivo 3
@@ -882,15 +876,12 @@ void main()
       {
         configureToStart();
         //apagar el temporizador para dispositivo 3
-        if (N0_Temp == 2)
+        if (init_timer)
         {
-          if (init_timer)
-          {
-            while (init_timer)
-              ;
-            estado3 = 0;
-            DISPOSITIVO_3 = 0;
-          }
+          while (init_timer)
+            ;
+          estado3 = 0;
+          DISPOSITIVO_3 = 0;
         }
       }
       //iniciar el temporizador para dispostivo 4
@@ -898,15 +889,12 @@ void main()
       {
         configureToStart();
         //apagar el temporizador para dispositivo 4
-        if (N0_Temp == 3)
+        if (init_timer)
         {
-          if (init_timer)
-          {
-            while (init_timer)
-              ;
-            estado4 = 0;
-            DISPOSITIVO_4 = 0;
-          }
+          while (init_timer)
+            ;
+          estado4 = 0;
+          DISPOSITIVO_4 = 0;
         }
       }
 
