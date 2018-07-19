@@ -18,6 +18,7 @@ sbit DISPOSITIVO_1 at RC0_bit;
 sbit DISPOSITIVO_2 at RC1_bit;
 sbit DISPOSITIVO_3 at RC2_bit;
 sbit DISPOSITIVO_4 at RC4_bit;
+
 /////////////////////////////////////////////variables
 signed short int segundos = 0, minutos = 0, horas = 0;
 
@@ -58,72 +59,21 @@ void ver_temporizador(int row, int col, int minuto)
 void mostrar_segundos()
 {
   const row = 2, col = 13;
-  switch (N0_Temp)
-  {
-  case 0:
-    ver_temporizador(row, col, arrayTemp[0].Segundo);
-    break;
-
-  case 1:
-    ver_temporizador(row, col, arrayTemp[1].Segundo);
-    break;
-
-  case 2:
-    ver_temporizador(row, col, arrayTemp[2].Segundo);
-    break;
-
-  case 3:
-    ver_temporizador(row, col, arrayTemp[3].Segundo);
-    break;
-  }
+  ver_temporizador(row, col, arrayTemp[N0_Temp].Segundo);
 }
 
 //funcion para visualizar minutos
 void mostrar_minutos()
 {
   const row = 2, col = 10;
-  switch (N0_Temp)
-  {
-  case 0:
-    ver_temporizador(row, col, arrayTemp[0].Minuto);
-    break;
-
-  case 1:
-    ver_temporizador(row, col, arrayTemp[1].Minuto);
-    break;
-
-  case 2:
-    ver_temporizador(row, col, arrayTemp[2].Minuto);
-    break;
-
-  case 3:
-    ver_temporizador(row, col, arrayTemp[3].Minuto);
-    break;
-  }
+  ver_temporizador(row, col, arrayTemp[N0_Temp].Minuto);
 }
 
 //funcion para visualizar horas
 void mostrar_horas()
 {
   const row = 2, col = 7;
-  switch (N0_Temp)
-  {
-  case 0:
-    ver_temporizador(row, col, arrayTemp[0].Hora);
-    break;
-
-  case 1:
-    ver_temporizador(row, col, arrayTemp[1].Hora);
-    break;
-
-  case 2:
-    ver_temporizador(row, col, arrayTemp[2].Hora);
-    break;
-
-  case 3:
-    ver_temporizador(row, col, arrayTemp[3].Hora);
-    break;
-  }
+  ver_temporizador(row, col, arrayTemp[N0_Temp].Hora);
 }
 
 //funcion para visualizar segundos (edicion)
