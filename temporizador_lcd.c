@@ -868,35 +868,18 @@ void main()
         encender_dispositivo();
       }
 
-      //inciar el temporizador para dispositivo 1
-      if (dispositivos[0](3) == 1 && N0_Temp == 0)
+      //apagar el temporizador para dispositivos
+      for (ii = 0; ii < 4; ii++)
       {
-        configureToStart();
-        //apagar el temporizador para dispositivo 1
-        apagar_dispositivo();
-      }
-      //iniciar el temporizador para dispostivo 2
-      if (dispositivos[1](3) == 1 && N0_Temp == 1)
-      {
-        configureToStart();
-        //apagar el temporizador para dispositivo 2
-        apagar_dispositivo();
-      }
-      //iniciar el temporizador para dispostivo 3
-      if (dispositivos[2](3) == 1 && N0_Temp == 2)
-      {
-        configureToStart();
-        //apagar el temporizador para dispositivo 3
-        apagar_dispositivo();
-      }
-      //iniciar el temporizador para dispostivo 4
-      if (dispositivos[3](3) == 1 && N0_Temp == 3)
-      {
-        configureToStart();
-        //apagar el temporizador para dispositivo 4
-        apagar_dispositivo();
+        if (dispositivos[ii](3) == 1 && N0_Temp == ii)
+        {
+          configureToStart();
+          //apagar el temporizador para dispositivo 4
+          apagar_dispositivo();
+        }
       }
 
+      // inicia alarmas
       for (ii = 0; ii < 4; ii++)
       {
         if (isZeroTemp(ii) && dispositivos[ii](3) == 1)
