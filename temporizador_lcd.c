@@ -48,29 +48,34 @@ char desactivado[] = "DESACTIVADO";
 
 int disp1(int estado)
 {
+  if (estado == 3)
+    return RC0_bit;
   RC0_bit = estado;
 }
 
 int disp2(int estado)
 {
+  if (estado == 3)
+    return RC1_bit;
   RC1_bit = estado;
 }
 
 int disp3(int estado)
 {
+  if (estado == 3)
+    return RC2_bit;
   RC2_bit = estado;
 }
 
 int disp4(int estado)
 {
+  if (estado == 3)
+    return RC4_bit;
   RC4_bit = estado;
 }
 
 int (*dispositivos[])(int) = {disp1, disp2, disp3, disp4};
 
-void start()
-{
-}
 
 void ver_temporizador(int row, int col, int minuto)
 {
@@ -802,7 +807,7 @@ void main()
       }
 
       //Encender dispositivo 1
-      if (DISPOSITIVO_1 == 0 && N0_Temp == 0)
+      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 0)
       {
         if (estado1 == 1)
           habilitar_EEPROM = 1;
@@ -814,7 +819,7 @@ void main()
         }
       }
       //Encender dispostivo 2
-      if (DISPOSITIVO_2 == 0 && N0_Temp == 1)
+      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 1)
       {
         if (estado2 == 1)
           habilitar_EEPROM = 1;
@@ -826,7 +831,7 @@ void main()
         }
       }
       //Encender dispostivo 3
-      if (DISPOSITIVO_3 == 0 && N0_Temp == 2)
+      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 2)
       {
         if (estado3 == 1)
           habilitar_EEPROM = 1;
@@ -838,7 +843,7 @@ void main()
         }
       }
       //Encender dispositivo 4
-      if (DISPOSITIVO_4 == 0 && N0_Temp == 3)
+      if (dispositivos[N0_Temp](3) == 0 && N0_Temp == 3)
       {
         if (estado4 == 1)
           habilitar_EEPROM = 1;
