@@ -869,28 +869,28 @@ void main()
       }
 
       //inciar el temporizador para dispositivo 1
-      if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 0)
+      if (dispositivos[0](3) == 1 && N0_Temp == 0)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 1
         apagar_dispositivo();
       }
       //iniciar el temporizador para dispostivo 2
-      if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 1)
+      if (dispositivos[1](3) == 1 && N0_Temp == 1)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 2
         apagar_dispositivo();
       }
       //iniciar el temporizador para dispostivo 3
-      if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 2)
+      if (dispositivos[2](3) == 1 && N0_Temp == 2)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 3
         apagar_dispositivo();
       }
       //iniciar el temporizador para dispostivo 4
-      if (dispositivos[N0_Temp](3) == 1 && N0_Temp == 3)
+      if (dispositivos[3](3) == 1 && N0_Temp == 3)
       {
         configureToStart();
         //apagar el temporizador para dispositivo 4
