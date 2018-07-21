@@ -75,3 +75,9 @@ void mostrar_puntos(short bandera)
   }
 }
 
+
+void Lcd_N_Timer(int row, int col, int N0_Temp)
+{
+  Lcd_Out(row, col, "DISPOSITIVO"); //visualizar el numero de DISPOSITIVO
+  Lcd_Chr(row, col + 12, N0_Temp + 49);
+}

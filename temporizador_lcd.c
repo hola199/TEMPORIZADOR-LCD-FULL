@@ -257,11 +257,7 @@ void Inc_Dec_N0Timer()
     reposar();
 }
 
-void Lcd_N_Timer(int row, int col, int N0_Temp)
-{
-  Lcd_Out(row, col, "DISPOSITIVO"); //visualizar el numero de DISPOSITIVO
-  Lcd_Chr(row, col + 12, N0_Temp + 49);
-}
+void Lcd_N_Timer(int, int, int);
 
 void visualizar_N0_Timer()
 {
