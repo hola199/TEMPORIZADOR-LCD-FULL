@@ -133,19 +133,7 @@ void parpadear_horas_temp()
   }
 }
 
-void mostrar_puntos()
-{ //funcion para visualizar y hacer parpadear los dos puntos " : "
-  if (activar == 1)
-  {
-    Lcd_Chr(2, 12, 58);
-    Lcd_Chr(2, 9, 58);
-  }
-  else
-  {
-    Lcd_Chr(2, 12, ' ');
-    Lcd_Chr(2, 9, ' ');
-  }
-}
+void mostrar_puntos(short);
 
 void cuenta_regresiva(int numero)
 { //configuracion/cuenta regresiva ( dispositovo1)
@@ -680,7 +668,7 @@ void main()
       }
 
       habilitar_alarma = EEPROM_Read(0X12);
-      mostrar_puntos();
+      mostrar_puntos(activar);
       if (habilitar_EEPROM == 1)
         leer_EEPROM();
 
@@ -823,7 +811,7 @@ void main()
     while (programa == 3)
     {
       const row = 1, col = 3;
-      mostrar_puntos();
+      mostrar_puntos(activar);
       Lcd_N_Timer(row, col, N0_temp);
 
       if (OK)

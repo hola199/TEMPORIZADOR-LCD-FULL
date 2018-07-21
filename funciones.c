@@ -60,3 +60,18 @@ void presentacion()
   delay_ms(200);
   Lcd_Cmd(_LCD_CLEAR);
 }
+
+void mostrar_puntos(short bandera)
+{ //funcion para visualizar y hacer parpadear los dos puntos " : "
+  if (bandera == 1)
+  {
+    Lcd_Chr(2, 12, 58);
+    Lcd_Chr(2, 9, 58);
+  }
+  else
+  {
+    Lcd_Chr(2, 12, ' ');
+    Lcd_Chr(2, 9, ' ');
+  }
+}
+
