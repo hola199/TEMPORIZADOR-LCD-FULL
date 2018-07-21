@@ -285,12 +285,7 @@ void visualizar_N0_Timer()
   }
 }
 
-void LCD_N0_Timer(int N)
-{
-  const row = 2, col = 2;
-  Lcd_N_Timer(row, col, N);
-  Lcd_Out(1, 3, "CONFIGURAR");
-}
+void LCD_N0_Timer(int);
 
 void visualizar_N0_Timer2()
 {

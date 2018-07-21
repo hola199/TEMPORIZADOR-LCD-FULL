@@ -81,3 +81,10 @@ void Lcd_N_Timer(int row, int col, int N0_Temp)
   Lcd_Out(row, col, "DISPOSITIVO"); //visualizar el numero de DISPOSITIVO
   Lcd_Chr(row, col + 12, N0_Temp + 49);
 }
+
+void LCD_N0_Timer(int N)
+{
+  const row = 2, col = 2;
+  Lcd_N_Timer(row, col, N);
+  Lcd_Out(1, 3, "CONFIGURAR");
+}
