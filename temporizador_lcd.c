@@ -18,13 +18,37 @@ sbit DISPOSITIVO_2 at RC1_bit;
 sbit DISPOSITIVO_3 at RC2_bit;
 sbit DISPOSITIVO_4 at RC4_bit;
 
-short j, activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0;
-int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt_alarma = 0, ii; // todo los contadores son de tipo int
-short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
-      habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
-short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
-short programa = 0, N0_Temp = 0, estado[] = {1, 1, 1, 1},
-      alarmas[] = {0, 0, 0, 0};
+// contadores
+int
+    contador = 0,
+    apagar_parpadeo = 0,
+    contador2 = 0,
+    cnt2 = 0,
+    cnt3 = 0,
+    cnt_alarma = 0,
+    ii,
+    j;
+
+short
+    activar = 1,
+    clear = 0,
+    nn = 1,
+    habilitar_alarma = 0,
+    h = 0,
+    selector = 0,
+    parpadeo = 1,
+    habilitar_EEPROM = 1,
+    habilitar_parpadeo = 0,
+    modo_reposo = 1,
+    habilitar_puntos = 0,
+    Inc = 0,
+    Dec = 0,
+    OK = 0,
+    init_timer = 0, //variables para el manejo del programa desde las interrupciones
+    programa = 0,
+    N0_Temp = 0,
+    estado[] = {1, 1, 1, 1},
+    alarmas[] = {0, 0, 0, 0};
 
 struct Time
 {
