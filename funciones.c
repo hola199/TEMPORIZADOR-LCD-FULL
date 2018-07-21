@@ -38,3 +38,25 @@ int disp4(int estado)
   RC4_bit = estado;
   return 20;
 }
+
+void presentacion()
+{
+  char text[13] = "Temporizador";
+  char text1[14] = "Reprogramable";
+  char i;
+  delay_ms(300);
+  for (i = 3; i < 15; i++)
+  {
+    Lcd_Chr(1, i, text[i - 3]);
+    delay_ms(100);
+  }
+
+  for (i = 2; i < 15; i++)
+  {
+    Lcd_Chr(2, i, text1[i - 2]);
+    delay_ms(100);
+  }
+
+  delay_ms(200);
+  Lcd_Cmd(_LCD_CLEAR);
+}
