@@ -650,6 +650,10 @@ void encender_alarma()
   Lcd_Cmd(_LCD_CLEAR);
 }
 
+void change_program(int program) {
+  programa = program;
+}
+
 void main()
 {
   init_main();
