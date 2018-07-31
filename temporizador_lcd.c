@@ -55,6 +55,8 @@ struct Time
   signed short int Segundo, Minuto, Hora;
 } Temp, arrayTemp[3], arrayEprom[3];
 
+const pinInc = 4;
+
 //Mensajes a visulizar
 char onn[] = "ONN";
 char off[] = "OFF";
@@ -71,6 +73,16 @@ int disp3(int);
 int disp4(int);
 
 int (*dispositivos[])(int) = {disp1, disp2, disp3, disp4};
+
+// btn PORTB
+void btn(int pin, void (*func)())
+{
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0));
+      func();
+  }
+}
 
 void ver_temporizador(int, int, int);
 //funcion para visualizar segundos
@@ -254,6 +266,14 @@ void reposar()
 {
   if (DISPOSITIVO_1 == 0 && DISPOSITIVO_2 == 0 && DISPOSITIVO_3 && DISPOSITIVO_4 == 0)
     modo_reposo = 1;
+}
+
+void increment_NO_Temp()
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  N0_Temp++;
+  if (N0_Temp > 3)
+    N0_Temp = 3;
 }
 
 void Inc_Dec_N0Timer()
@@ -659,15 +679,6 @@ void encender_alarma()
   Lcd_Cmd(_LCD_CLEAR);
 }
 
-// btn PORTB
-void btn(int pin, void (*func)())
-{
-  if (Button(&PORTB, pin, 1, 0))
-  {
-    while (Button(&PORTB, pin, 1, 0))
-    func();
-  }
-}
 
 void main()
 {
