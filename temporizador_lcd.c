@@ -79,8 +79,9 @@ void btn(int pin, void (*func)())
 {
   if (Button(&PORTB, pin, 1, 0))
   {
-    while (Button(&PORTB, pin, 1, 0));
-      func();
+    while (Button(&PORTB, pin, 1, 0))
+      ;
+    func();
   }
 }
 
@@ -524,40 +525,14 @@ void desactivar_reposo()
 
 void interrupt()
 {
-  // interrupciones por cambio de flanco en el PORTB
-  if (Button(&PORTB, 4, 1, 0))
-  {
-    desactivar_reposo();
-    Inc = 1;
-  }
-  else
-    Inc = 0;
 
-  if (Button(&PORTB, 5, 1, 0))
+  if (RBIF_bit)
   {
-    desactivar_reposo();
-    Dec = 1;
+    if (RB7_bit == 0)
+    {
+    }
+    RBIF_bit = 0;
   }
-  else
-    Dec = 0;
-
-  if (Button(&PORTB, 6, 1, 0))
-  {
-    desactivar_reposo();
-    OK = 1;
-  }
-  else
-    OK = 0;
-
-  if (Button(&PORTB, 7, 1, 0))
-  {
-    desactivar_reposo();
-    init_timer = 1;
-  }
-  else
-    init_timer = 0;
-
-  RBIF_bit = 0;
 
   if (T0IF_bit)
   { // interrupciones por el TMR0
@@ -678,7 +653,6 @@ void encender_alarma()
   cnt_alarma = 0;
   Lcd_Cmd(_LCD_CLEAR);
 }
-
 
 void main()
 {
