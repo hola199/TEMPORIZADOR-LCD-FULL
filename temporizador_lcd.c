@@ -88,6 +88,17 @@ void btn(int pin, void (*func)())
   }
 }
 
+// tercer parametro sera el parametro de la funcion
+void btn_Parameter(int pin, void (*func)(int), int parametro)
+{
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0))
+      ;
+    func(parametro);
+  }
+}
+
 void ver_temporizador(int, int, int);
 //funcion para visualizar segundos
 void mostrar_segundos()
