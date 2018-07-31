@@ -55,7 +55,10 @@ struct Time
   signed short int Segundo, Minuto, Hora;
 } Temp, arrayTemp[3], arrayEprom[3];
 
-const pinInc = 4;
+const pinInc = 4,
+      pinDec = 5,
+      pinOk = 6,
+      pinInit = 7;
 
 //Mensajes a visulizar
 char onn[] = "ONN";
@@ -277,20 +280,19 @@ void increment_NO_Temp()
     N0_Temp = 3;
 }
 
+void decrement_N0_Temp()
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  N0_Temp--;
+  if (N0_Temp < 0)
+    N0_Temp = 0;
+}
+
 void Inc_Dec_N0Timer()
 {
   btn(pinInc, increment_NO_Temp);
-  
-  if (Dec)
-  {
-    while (Dec)
-      Lcd_Cmd(_LCD_CLEAR);
-    N0_Temp--;
-    if (N0_Temp < 0)
-      N0_Temp = 0;
-  }
-  else
-    reposar();
+  btn(pinDec, decrement_N0_Temp);
+  //  reposar();
 }
 
 void Lcd_N_Timer(int, int, int);
