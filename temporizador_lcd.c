@@ -659,6 +659,16 @@ void encender_alarma()
   Lcd_Cmd(_LCD_CLEAR);
 }
 
+// btn PORTB
+void btn(int pin, void (*func)())
+{
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0))
+    func();
+  }
+}
+
 void main()
 {
   init_main();
