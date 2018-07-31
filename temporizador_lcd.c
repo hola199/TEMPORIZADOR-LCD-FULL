@@ -447,21 +447,10 @@ void alarma()
     blink_led_alarma();
   }
 
-  if (Inc)
-    while (Inc)
-      reset_alarma();
-
-  if (Dec)
-    while (Dec)
-      reset_alarma();
-
-  if (OK)
-    while (OK)
-      reset_alarma();
-
-  if (Init_timer)
-    while (Init_timer)
-      reset_alarma();
+  btn(pinInc, reset_alarma);
+  btn(pinDec, reset_alarma);
+  btn(pinOk, reset_alarma);
+  btn(pinInit, reset_alarma);
 }
 
 //funcion para visualizar los textos "Temporizador" y "Reprogramable"
