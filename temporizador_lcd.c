@@ -279,17 +279,8 @@ void increment_NO_Temp()
 
 void Inc_Dec_N0Timer()
 {
-  if (Inc)
-  {
-    while (Inc)
-      Lcd_Cmd(_LCD_CLEAR);
-    N0_Temp++;
-    if (N0_Temp > 3)
-      N0_Temp = 3;
-  }
-  else
-    reposar();
-
+  btn(pinInc, increment_NO_Temp);
+  
   if (Dec)
   {
     while (Dec)
