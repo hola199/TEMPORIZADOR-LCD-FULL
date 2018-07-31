@@ -489,16 +489,17 @@ isZeroTemp(int N)
   return arrayTemp[N].Segundo == 0 && arrayTemp[N].Minuto == 0 && arrayTemp[N].Hora == 0;
 }
 
+void start()
+{
+  pinInit, dispositivos[N0_Temp](1);
+}
+
 void encender_dispositivo()
 {
   if (estado[N0_Temp] == 1)
     habilitar_EEPROM = 1;
 
-  if (init_timer)
-  {
-    while (init_timer)
-      dispositivos[N0_Temp](1);
-  }
+  btn(pinInit, start);
 }
 
 void apagar_dispositivo()
