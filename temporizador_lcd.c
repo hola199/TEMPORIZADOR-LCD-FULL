@@ -502,15 +502,17 @@ void encender_dispositivo()
   btn(pinInit, start);
 }
 
+void off_disp()
+{
+  estado[N0_Temp] = 0;
+  dispositivos[N0_Temp](0);
+}
+
 void apagar_dispositivo()
 {
-  if (init_timer)
-  {
-    while (init_timer)
-      estado[N0_Temp] = 0;
-    dispositivos[N0_Temp](0);
-  }
+  btn(pinInit, off_disp);
 }
+
 void desactivar_reposo()
 {
   modo_reposo = 0;
