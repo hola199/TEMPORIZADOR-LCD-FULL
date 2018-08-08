@@ -1,3 +1,27 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "*.asm": true,
+        "*.ini": true,
+        "*.cp": true,
+        "*.mcl": true,
+        "*.bmk": true,
+        "*.brk": true,
+        "*.cfg": true,
+        "*.dbg": true,
+        "*.dct": true,
+        "*.dlt": true,
+        "*.hex": true,
+        "*.html": true,
+        "*.log": true,
+        "*.lst": true,
+        "*.mcppi": true,
+        "*.dic": true,
+        "temporizador_lcd.mcppi_callertable.txt": true
+    }
 }
