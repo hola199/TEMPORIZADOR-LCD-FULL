@@ -850,12 +850,7 @@ void main()
         break;
       }
 
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 2;
-      }
+      btn_Parameter(pinInit, change_program, 2);
     }
 
     // configuracion de la alarma
