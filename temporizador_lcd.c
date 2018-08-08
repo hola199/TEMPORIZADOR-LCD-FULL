@@ -685,6 +685,12 @@ void decrementar_timer()
   Dec_timer();
 }
 
+void configurar_alarma()
+{
+  Lcd_Cmd(_lCD_CLEAR);
+  h = 1;
+}
+
 void main()
 {
   init_main();
@@ -797,13 +803,8 @@ void main()
         Lcd_Out(1, 2, "CONFIGURAR < ");
         Lcd_Out(2, 2, temporizadores);
 
-        if (Inc)
-        { // regresar a, configurar la alarma
-          while (Inc)
-            Lcd_Cmd(_lCD_CLEAR);
-          h = 1;
-        }
-
+        btn(pinInc, configurar_alarma);
+        
         // Confirmacion para configurar los temporizadores
         btn_Parameter(pinOk, change_program, 2);
       }
