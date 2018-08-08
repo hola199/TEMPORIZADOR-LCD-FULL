@@ -662,6 +662,15 @@ void edit_temp(int program)
   transmitir();
 }
 
+void guardar_emprom()
+{
+  selector++;
+  if (selector > 2)
+    selector = 0;
+  grabar_EEPROM();
+  habilitar_EEPROM = 1;
+}
+
 void main()
 {
   init_main();
@@ -821,6 +830,8 @@ void main()
         grabar_EEPROM();
         habilitar_EEPROM = 1;
       }
+
+    btn(pinOk, guardar_emprom);
 
       if (Inc)
       {                      //incrementar
