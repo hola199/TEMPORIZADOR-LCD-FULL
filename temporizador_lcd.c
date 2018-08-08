@@ -671,6 +671,20 @@ void guardar_emprom()
   habilitar_EEPROM = 1;
 }
 
+void incrementar_timer()
+{
+  contador2 = 0;       // se reinica la variable que se encarda de apagar el parpadeo.
+  apagar_parpadeo = 0; // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
+  Inc_timer();
+}
+
+void decrementar_timer()
+{
+  contador2 = 0;       // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
+  apagar_parpadeo = 0; // se reinica la variable que se encarda de apagar el parpadeo
+  Dec_timer();
+}
+
 void main()
 {
   init_main();
@@ -805,7 +819,6 @@ void main()
 
       // editar los temporizadores
       btn_Parameter(pinOk, edit_temp, 3);
-
       btn_Parameter(pinInit, change_program, 1);
     }
 
@@ -818,19 +831,9 @@ void main()
 
       btn(pinOk, guardar_emprom);
 
-      if (Inc)
-      {                      //incrementar
-        contador2 = 0;       // se reinica la variable que se encarda de apagar el parpadeo.
-        apagar_parpadeo = 0; // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
-        Inc_timer();
-      }
-
-      if (Dec)
-      {                      //decender
-        contador2 = 0;       // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
-        apagar_parpadeo = 0; // se reinica la variable que se encarda de apagar el parpadeo
-        Dec_timer();
-      }
+      // botones para modificar el tiempo
+      btn(pinInc, incrementar_timer);
+      btn(pinDec, decrementar_timer);
 
       habilitar_parpadeo = 1;
       switch (selector)
