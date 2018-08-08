@@ -656,6 +656,12 @@ void change_program(int program)
   programa = program;
 }
 
+void edit_temp(int program)
+{
+  change_program(program);
+  transmitir();
+}
+
 void main()
 {
   init_main();
@@ -788,13 +794,8 @@ void main()
       Inc_Dec_N0Timer();
       visualizar_N0_Timer2();
 
-      if (OK)
-      {
-        while (OK)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 3;
-        transmitir();
-      }
+      // editar los temporizadores
+      btn_Parameter(pinOk, edit_temp, 3);
 
       if (init_timer)
       {
