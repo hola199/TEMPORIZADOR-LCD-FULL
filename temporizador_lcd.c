@@ -77,17 +77,7 @@ int disp4(int);
 
 int (*dispositivos[])(int) = {disp1, disp2, disp3, disp4};
 
-// btn PORTB
-void btn(int pin, void (*func)())
-{
-  if (Button(&PORTB, pin, 1, 0))
-  {
-    while (Button(&PORTB, pin, 1, 0))
-      ;
-    func();
-  }
-}
-
+void btn(int pin, void (*func)());
 // tercer parametro sera el parametro de la funcion
 void btn_Parameter(int pin, void (*func)(int), int parametro)
 {

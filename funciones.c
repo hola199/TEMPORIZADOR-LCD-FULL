@@ -88,3 +88,14 @@ void LCD_N0_Timer(int N)
   Lcd_N_Timer(row, col, N);
   Lcd_Out(1, 3, "CONFIGURAR");
 }
+
+// btn PORTB
+void btn(int pin, void (*func)())
+{
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0))
+      ;
+    func();
+  }
+}
