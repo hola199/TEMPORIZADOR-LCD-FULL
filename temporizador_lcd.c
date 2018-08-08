@@ -18,18 +18,47 @@ sbit DISPOSITIVO_2 at RC1_bit;
 sbit DISPOSITIVO_3 at RC2_bit;
 sbit DISPOSITIVO_4 at RC4_bit;
 
-short j, activar = 1, clear = 0, nn = 1, habilitar_alarma = 0, h = 0;
-int contador = 0, apagar_parpadeo = 0, contador2 = 0, cnt2 = 0, cnt3 = 0, cnt_alarma = 0, ii; // todo los contadores son de tipo int
-short selector = 0, parpadeo = 1, habilitar_EEPROM = 1,
-      habilitar_parpadeo = 0, modo_reposo = 1, habilitar_puntos = 0;
-short Inc = 0, Dec = 0, OK = 0, init_timer = 0; //variables para el manejo del programa desde las interrupciones
-short programa = 0, N0_Temp = 0, estado[] = {1, 1, 1, 1},
-      alarmas[] = {0, 0, 0, 0};
+// contadores
+int
+    contador = 0,
+    apagar_parpadeo = 0,
+    contador2 = 0,
+    cnt2 = 0,
+    cnt3 = 0,
+    cnt_alarma = 0,
+    ii,
+    j;
+
+short
+    activar = 1,
+    clear = 0,
+    nn = 1,
+    habilitar_alarma = 0,
+    h = 0,
+    selector = 0,
+    parpadeo = 1,
+    habilitar_EEPROM = 1,
+    habilitar_parpadeo = 0,
+    modo_reposo = 1,
+    habilitar_puntos = 0,
+    Inc = 0,
+    Dec = 0,
+    OK = 0,
+    init_timer = 0, //variables para el manejo del programa desde las interrupciones
+    programa = 0,
+    N0_Temp = 0,
+    estado[] = {1, 1, 1, 1},
+    alarmas[] = {0, 0, 0, 0};
 
 struct Time
 {
   signed short int Segundo, Minuto, Hora;
 } Temp, arrayTemp[3], arrayEprom[3];
+
+const pinInc = 4,
+      pinDec = 5,
+      pinOk = 6,
+      pinInit = 7;
 
 //Mensajes a visulizar
 char onn[] = "ONN";
@@ -41,49 +70,36 @@ char temporizadores[] = "TEMPORIZADORES";
 char activado[] = "ACTIVADO";
 char desactivado[] = "DESACTIVADO";
 
-int disp1(int estado)
-{
-  if (estado == 3)
-    return RC0_bit;
-  RC0_bit = estado;
-  return 20;
-}
-
-int disp2(int estado)
-{
-  if (estado == 3)
-    return RC1_bit;
-  RC1_bit = estado;
-  return 20;
-}
-
-int disp3(int estado)
-{
-  if (estado == 3)
-    return RC2_bit;
-  RC2_bit = estado;
-  return 20;
-}
-
-int disp4(int estado)
-{
-  if (estado == 3)
-    return RC4_bit;
-  RC4_bit = estado;
-  return 20;
-}
+int disp1(int);
+int disp2(int);
+int disp3(int);
+int disp4(int);
 
 int (*dispositivos[])(int) = {disp1, disp2, disp3, disp4};
 
-void ver_temporizador(int row, int col, int minuto)
+// btn PORTB
+void btn(int pin, void (*func)())
 {
-  int decenas, unidades;
-  decenas = minuto / 10;
-  unidades = minuto % 10;
-  Lcd_Chr(row, col + 1, (unidades + 48));
-  Lcd_Chr(row, col, (decenas + 48));
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0))
+      ;
+    func();
+  }
 }
 
+// tercer parametro sera el parametro de la funcion
+void btn_Parameter(int pin, void (*func)(int), int parametro)
+{
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0))
+      ;
+    func(parametro);
+  }
+}
+
+void ver_temporizador(int, int, int);
 //funcion para visualizar segundos
 void mostrar_segundos()
 {
@@ -168,19 +184,7 @@ void parpadear_horas_temp()
   }
 }
 
-void mostrar_puntos()
-{ //funcion para visualizar y hacer parpadear los dos puntos " : "
-  if (activar == 1)
-  {
-    Lcd_Chr(2, 12, 58);
-    Lcd_Chr(2, 9, 58);
-  }
-  else
-  {
-    Lcd_Chr(2, 12, ' ');
-    Lcd_Chr(2, 9, ' ');
-  }
-}
+void mostrar_puntos(short);
 
 void cuenta_regresiva(int numero)
 { //configuracion/cuenta regresiva ( dispositovo1)
@@ -279,36 +283,30 @@ void reposar()
     modo_reposo = 1;
 }
 
+void increment_NO_Temp()
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  N0_Temp++;
+  if (N0_Temp > 3)
+    N0_Temp = 3;
+}
+
+void decrement_N0_Temp()
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  N0_Temp--;
+  if (N0_Temp < 0)
+    N0_Temp = 0;
+}
+
 void Inc_Dec_N0Timer()
 {
-  if (Inc)
-  {
-    while (Inc)
-      Lcd_Cmd(_LCD_CLEAR);
-    N0_Temp++;
-    if (N0_Temp > 3)
-      N0_Temp = 3;
-  }
-  else
-    reposar();
-
-  if (Dec)
-  {
-    while (Dec)
-      Lcd_Cmd(_LCD_CLEAR);
-    N0_Temp--;
-    if (N0_Temp < 0)
-      N0_Temp = 0;
-  }
-  else
-    reposar();
+  btn(pinInc, increment_NO_Temp);
+  btn(pinDec, decrement_N0_Temp);
+  //  reposar();
 }
 
-void Lcd_N_Timer(int row, int col, int N0_Temp)
-{
-  Lcd_Out(row, col, "DISPOSITIVO"); //visualizar el numero de DISPOSITIVO
-  Lcd_Chr(row, col + 12, N0_Temp + 49);
-}
+void Lcd_N_Timer(int, int, int);
 
 void visualizar_N0_Timer()
 {
@@ -336,12 +334,7 @@ void visualizar_N0_Timer()
   }
 }
 
-void LCD_N0_Timer(int N)
-{
-  const row = 2, col = 2;
-  Lcd_N_Timer(row, col, N);
-  Lcd_Out(1, 3, "CONFIGURAR");
-}
+void LCD_N0_Timer(int);
 
 void visualizar_N0_Timer2()
 {
@@ -465,46 +458,15 @@ void alarma()
     blink_led_alarma();
   }
 
-  if (Inc)
-    while (Inc)
-      reset_alarma();
-
-  if (Dec)
-    while (Dec)
-      reset_alarma();
-
-  if (OK)
-    while (OK)
-      reset_alarma();
-
-  if (Init_timer)
-    while (Init_timer)
-      reset_alarma();
+  btn(pinInc, reset_alarma);
+  btn(pinDec, reset_alarma);
+  btn(pinOk, reset_alarma);
+  btn(pinInit, reset_alarma);
 }
 
 //funcion para visualizar los textos "Temporizador" y "Reprogramable"
 //de forma secuencial
-void presentacion()
-{
-  char text[13] = "Temporizador";
-  char text1[14] = "Reprogramable";
-  char i;
-  delay_ms(300);
-  for (i = 3; i < 15; i++)
-  {
-    Lcd_Chr(1, i, text[i - 3]);
-    delay_ms(100);
-  }
-
-  for (i = 2; i < 15; i++)
-  {
-    Lcd_Chr(2, i, text1[i - 2]);
-    delay_ms(100);
-  }
-
-  delay_ms(200);
-  Lcd_Cmd(_LCD_CLEAR);
-}
+void presentacion();
 
 void configuracion_interruptiones()
 { //funcion para configurar y habilitar interrupciones
@@ -527,27 +489,30 @@ isZeroTemp(int N)
   return arrayTemp[N].Segundo == 0 && arrayTemp[N].Minuto == 0 && arrayTemp[N].Hora == 0;
 }
 
+void start()
+{
+  pinInit, dispositivos[N0_Temp](1);
+}
+
 void encender_dispositivo()
 {
   if (estado[N0_Temp] == 1)
     habilitar_EEPROM = 1;
 
-  if (init_timer)
-  {
-    while (init_timer)
-      dispositivos[N0_Temp](1);
-  }
+  btn(pinInit, start);
+}
+
+void off_disp()
+{
+  estado[N0_Temp] = 0;
+  dispositivos[N0_Temp](0);
 }
 
 void apagar_dispositivo()
 {
-  if (init_timer)
-  {
-    while (init_timer)
-      estado[N0_Temp] = 0;
-    dispositivos[N0_Temp](0);
-  }
+  btn(pinInit, off_disp);
 }
+
 void desactivar_reposo()
 {
   modo_reposo = 0;
@@ -556,40 +521,14 @@ void desactivar_reposo()
 
 void interrupt()
 {
-  // interrupciones por cambio de flanco en el PORTB
-  if (Button(&PORTB, 4, 1, 0))
-  {
-    desactivar_reposo();
-    Inc = 1;
-  }
-  else
-    Inc = 0;
 
-  if (Button(&PORTB, 5, 1, 0))
+  if (RBIF_bit)
   {
-    desactivar_reposo();
-    Dec = 1;
+    if (RB7_bit == 0)
+    {
+    }
+    RBIF_bit = 0;
   }
-  else
-    Dec = 0;
-
-  if (Button(&PORTB, 6, 1, 0))
-  {
-    desactivar_reposo();
-    OK = 1;
-  }
-  else
-    OK = 0;
-
-  if (Button(&PORTB, 7, 1, 0))
-  {
-    desactivar_reposo();
-    init_timer = 1;
-  }
-  else
-    init_timer = 0;
-
-  RBIF_bit = 0;
 
   if (T0IF_bit)
   { // interrupciones por el TMR0
@@ -711,6 +650,60 @@ void encender_alarma()
   Lcd_Cmd(_LCD_CLEAR);
 }
 
+void change_program(int program)
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  programa = program;
+}
+
+void edit_temp(int program)
+{
+  change_program(program);
+  transmitir();
+}
+
+void guardar_emprom()
+{
+  selector++;
+  if (selector > 2)
+    selector = 0;
+  grabar_EEPROM();
+  habilitar_EEPROM = 1;
+}
+
+void incrementar_timer()
+{
+  contador2 = 0;       // se reinica la variable que se encarda de apagar el parpadeo.
+  apagar_parpadeo = 0; // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
+  Inc_timer();
+}
+
+void decrementar_timer()
+{
+  contador2 = 0;       // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
+  apagar_parpadeo = 0; // se reinica la variable que se encarda de apagar el parpadeo
+  Dec_timer();
+}
+
+void configurar_alarma()
+{
+  Lcd_Cmd(_lCD_CLEAR);
+  h = 1;
+}
+
+void configurar_temporizador()
+{
+  Lcd_Cmd(_lCD_CLEAR);
+  h = 0;
+}
+
+void cambiar_alarma(int estado)
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  habilitar_alarma = estado;
+  EEPROM_Write(0X12, habilitar_alarma);
+}
+
 void main()
 {
   init_main();
@@ -735,7 +728,7 @@ void main()
       }
 
       habilitar_alarma = EEPROM_Read(0X12);
-      mostrar_puntos();
+      mostrar_puntos(activar);
       if (habilitar_EEPROM == 1)
         leer_EEPROM();
 
@@ -754,13 +747,7 @@ void main()
 
       // pasar al programa 1( en el programa 1
       // se visualiza el tipo de ajuste que se dese realizar)
-      if (OK)
-      {
-        while (OK)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 1;
-      }
-
+      btn_Parameter(pinOk, change_program, 1);
       //Encender DISPOSITIVO
       for (ii = 0; ii < 4; ii++)
       {
@@ -809,19 +796,10 @@ void main()
         Lcd_Out(1, 2, "CONFIGURAR >");
         Lcd_Out(2, 3, alarma_text);
         // Cambiar a, configurar temporizadores
-        if (Dec)
-        {
-          while (Dec)
-            Lcd_Cmd(_lCD_CLEAR);
-          h = 0;
-        }
-        //Pasar a configrar la alarma
-        if (OK)
-        {
-          while (OK)
-            Lcd_Cmd(_lCD_CLEAR);
-          programa = 4;
-        }
+        btn(pinDec, configurar_temporizador);
+
+        //ir a  configurar la alarma
+        btn_Parameter(pinOk, change_program, 4);
       }
       //Opcion para configurar los temporizadores
       if (h == 0)
@@ -829,27 +807,13 @@ void main()
         Lcd_Out(1, 2, "CONFIGURAR < ");
         Lcd_Out(2, 2, temporizadores);
 
-        if (Inc)
-        { // regresar a, configurar la alarma
-          while (Inc)
-            Lcd_Cmd(_lCD_CLEAR);
-          h = 1;
-        }
+        btn(pinInc, configurar_alarma);
 
-        if (OK)
-        { // Confirmacion para configurar los temporizadores
-          while (OK)
-            Lcd_Cmd(_lCD_CLEAR);
-          programa = 2;
-        }
+        // Confirmacion para configurar los temporizadores
+        btn_Parameter(pinOk, change_program, 2);
       }
       //regresar al programa principal
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 0;
-      }
+      btn_Parameter(pinInit, change_program, 0);
     }
     //muestra en la LCD en numero de temporizador que se desee ajustar
     while (programa == 2)
@@ -858,52 +822,23 @@ void main()
       Inc_Dec_N0Timer();
       visualizar_N0_Timer2();
 
-      if (OK)
-      {
-        while (OK)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 3;
-        transmitir();
-      }
-
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 1;
-      }
+      // editar los temporizadores
+      btn_Parameter(pinOk, edit_temp, 3);
+      btn_Parameter(pinInit, change_program, 1);
     }
 
     //ajustar los temporizadores
     while (programa == 3)
     {
       const row = 1, col = 3;
-      mostrar_puntos();
+      mostrar_puntos(activar);
       Lcd_N_Timer(row, col, N0_temp);
 
-      if (OK)
-      {
-        while (OK)
-          selector++;
-        if (selector > 2)
-          selector = 0;
-        grabar_EEPROM();
-        habilitar_EEPROM = 1;
-      }
+      btn(pinOk, guardar_emprom);
 
-      if (Inc)
-      {                      //incrementar
-        contador2 = 0;       // se reinica la variable que se encarda de apagar el parpadeo.
-        apagar_parpadeo = 0; // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
-        Inc_timer();
-      }
-
-      if (Dec)
-      {                      //decender
-        contador2 = 0;       // se reinicia la variable que se encarga de proporcionar el tiempo de parpadeo.
-        apagar_parpadeo = 0; // se reinica la variable que se encarda de apagar el parpadeo
-        Dec_timer();
-      }
+      // botones para modificar el tiempo
+      btn(pinInc, incrementar_timer);
+      btn(pinDec, decrementar_timer);
 
       habilitar_parpadeo = 1;
       switch (selector)
@@ -919,47 +854,24 @@ void main()
         break;
       }
 
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 2;
-      }
+      btn_Parameter(pinInit, change_program, 2);
     }
 
     // configuracion de la alarma
     while (programa == 4)
     {
-
       if (habilitar_alarma)
       {
         Lcd_Out(1, 3, activado);
-        if (Dec || OK)
-        {
-          while (Dec || OK)
-            Lcd_Cmd(_LCD_CLEAR);
-          habilitar_alarma = 0;
-          EEPROM_Write(0X12, habilitar_alarma);
-        }
+        btn_Parameter(pinOk, cambiar_alarma, 0);
       }
       else
       {
         Lcd_Out(1, 3, desactivado);
-        if (Inc || OK)
-        {
-          while (Inc || OK)
-            Lcd_Cmd(_LCD_CLEAR);
-          habilitar_alarma = 1;
-          EEPROM_Write(0X12, habilitar_alarma);
-        }
+        btn_Parameter(pinOk, cambiar_alarma, 1);
       }
 
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 1;
-      }
+      btn_Parameter(pinInit, change_program, 1);
     }
   }
 }
