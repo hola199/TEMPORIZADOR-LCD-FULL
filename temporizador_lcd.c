@@ -650,7 +650,9 @@ void encender_alarma()
   Lcd_Cmd(_LCD_CLEAR);
 }
 
-void change_program(int program) {
+void change_program(int program)
+{
+  Lcd_Cmd(_LCD_CLEAR);
   programa = program;
 }
 
@@ -697,13 +699,7 @@ void main()
 
       // pasar al programa 1( en el programa 1
       // se visualiza el tipo de ajuste que se dese realizar)
-      if (OK)
-      {
-        while (OK)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 1;
-      }
-
+      btn_Parameter(pinOk, change_program, 1);
       //Encender DISPOSITIVO
       for (ii = 0; ii < 4; ii++)
       {
@@ -787,12 +783,7 @@ void main()
         }
       }
       //regresar al programa principal
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 0;
-      }
+      btn_Parameter(pinInit, change_program, 0);
     }
     //muestra en la LCD en numero de temporizador que se desee ajustar
     while (programa == 2)
