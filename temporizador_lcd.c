@@ -821,17 +821,7 @@ void main()
       mostrar_puntos(activar);
       Lcd_N_Timer(row, col, N0_temp);
 
-      if (OK)
-      {
-        while (OK)
-          selector++;
-        if (selector > 2)
-          selector = 0;
-        grabar_EEPROM();
-        habilitar_EEPROM = 1;
-      }
-
-    btn(pinOk, guardar_emprom);
+      btn(pinOk, guardar_emprom);
 
       if (Inc)
       {                      //incrementar
