@@ -99,3 +99,13 @@ void btn(int pin, void (*func)())
     func();
   }
 }
+
+void btn_Parameter(int pin, void (*func)(int), int parametro)
+{
+  if (Button(&PORTB, pin, 1, 0))
+  {
+    while (Button(&PORTB, pin, 1, 0))
+      ;
+    func(parametro);
+  }
+}
