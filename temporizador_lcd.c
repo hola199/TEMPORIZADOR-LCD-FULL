@@ -775,12 +775,8 @@ void main()
           h = 1;
         }
 
-        if (OK)
-        { // Confirmacion para configurar los temporizadores
-          while (OK)
-            Lcd_Cmd(_lCD_CLEAR);
-          programa = 2;
-        }
+        // Confirmacion para configurar los temporizadores
+        btn_Parameter(pinOk, change_program, 2);
       }
       //regresar al programa principal
       btn_Parameter(pinInit, change_program, 0);
