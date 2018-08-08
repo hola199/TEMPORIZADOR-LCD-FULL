@@ -789,13 +789,9 @@ void main()
             Lcd_Cmd(_lCD_CLEAR);
           h = 0;
         }
-        //Pasar a configrar la alarma
-        if (OK)
-        {
-          while (OK)
-            Lcd_Cmd(_lCD_CLEAR);
-          programa = 4;
-        }
+
+        //ir a  configurar la alarma
+        btn_Parameter(pinOk, change_program, 4);
       }
       //Opcion para configurar los temporizadores
       if (h == 0)
@@ -804,7 +800,7 @@ void main()
         Lcd_Out(2, 2, temporizadores);
 
         btn(pinInc, configurar_alarma);
-        
+
         // Confirmacion para configurar los temporizadores
         btn_Parameter(pinOk, change_program, 2);
       }
