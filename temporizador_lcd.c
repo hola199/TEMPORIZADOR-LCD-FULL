@@ -697,6 +697,13 @@ void configurar_temporizador()
   h = 0;
 }
 
+void cambiar_alarma(int estado)
+{
+  Lcd_Cmd(_LCD_CLEAR);
+  habilitar_alarma = estado;
+  EEPROM_Write(0X12, habilitar_alarma);
+}
+
 void main()
 {
   init_main();
@@ -853,28 +860,15 @@ void main()
     // configuracion de la alarma
     while (programa == 4)
     {
-
       if (habilitar_alarma)
       {
         Lcd_Out(1, 3, activado);
-        if (Dec || OK)
-        {
-          while (Dec || OK)
-            Lcd_Cmd(_LCD_CLEAR);
-          habilitar_alarma = 0;
-          EEPROM_Write(0X12, habilitar_alarma);
-        }
+        btn_Parameter(pinOk, cambiar_alarma, 0);
       }
       else
       {
         Lcd_Out(1, 3, desactivado);
-        if (Inc || OK)
-        {
-          while (Inc || OK)
-            Lcd_Cmd(_LCD_CLEAR);
-          habilitar_alarma = 1;
-          EEPROM_Write(0X12, habilitar_alarma);
-        }
+        btn_Parameter(pinOk, cambiar_alarma, 1);
       }
 
       if (init_timer)
