@@ -871,12 +871,7 @@ void main()
         btn_Parameter(pinOk, cambiar_alarma, 1);
       }
 
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 1;
-      }
+      btn_Parameter(pinInit, change_program, 1);
     }
   }
 }
