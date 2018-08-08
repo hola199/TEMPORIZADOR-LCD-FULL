@@ -806,12 +806,7 @@ void main()
       // editar los temporizadores
       btn_Parameter(pinOk, edit_temp, 3);
 
-      if (init_timer)
-      {
-        while (init_timer)
-          Lcd_Cmd(_LCD_CLEAR);
-        programa = 1;
-      }
+      btn_Parameter(pinInit, change_program, 1);
     }
 
     //ajustar los temporizadores
