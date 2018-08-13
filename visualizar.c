@@ -22,3 +22,9 @@ void mostrar_horas(struct Time *reloj)
   ver_temporizador(row, col, reloj->Hora);
 }
 
+void mostrar_segundos_temp(struct Time *reloj)
+{
+  const row = 2, col = 13;
+  ver_temporizador(row, col, reloj->Segundo);
+}
+
