@@ -92,22 +92,8 @@ void mostrar_minutos_temp(struct Time *reloj);
 void mostrar_horas_temp(struct Time *reloj);
 
 void parpadear_segundos_temp(struct Time *temporal, short parpadeo);
-
 void parpadear_minutos_temp(struct Time *temporal, short parpadeo);
-
-void parpadear_horas_temp()
-{ //funcion para hacer parpadear las horas
-  mostrar_segundos_temp(&Temp);
-  mostrar_minutos_temp(&Temp);
-
-  if (parpadeo == 1)
-    mostrar_horas_temp(&Temp);
-  else
-  {
-    Lcd_Chr(2, 8, (' '));
-    Lcd_Chr(2, 7, (' '));
-  }
-}
+void parpadear_horas_temp(struct Time *temporal, short parpadeo);
 
 void mostrar_puntos(short);
 
@@ -775,7 +761,7 @@ void main()
         parpadear_minutos_temp(&Temp, parpadeo);
         break;
       case 2:
-        parpadear_horas_temp();
+        parpadear_horas_temp(&Temp, parpadeo);
         break;
       }
 
