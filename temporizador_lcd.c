@@ -77,112 +77,23 @@ int disp4(int);
 
 int (*dispositivos[])(int) = {disp1, disp2, disp3, disp4};
 
-// btn PORTB
-void btn(int pin, void (*func)())
-{
-  if (Button(&PORTB, pin, 1, 0))
-  {
-    while (Button(&PORTB, pin, 1, 0))
-      ;
-    func();
-  }
-}
-
+void btn(int pin, void (*func)());
 // tercer parametro sera el parametro de la funcion
-void btn_Parameter(int pin, void (*func)(int), int parametro)
-{
-  if (Button(&PORTB, pin, 1, 0))
-  {
-    while (Button(&PORTB, pin, 1, 0))
-      ;
-    func(parametro);
-  }
-}
+void btn_Parameter(int pin, void (*func)(int), int parametro);
 
-void ver_temporizador(int, int, int);
-//funcion para visualizar segundos
-void mostrar_segundos()
-{
-  const row = 2, col = 13;
-  ver_temporizador(row, col, arrayTemp[N0_Temp].Segundo);
-}
+//funcion para visualizacion
+void mostrar_segundos(struct Time *reloj);
+void mostrar_minutos(struct Time *reloj);
+void mostrar_horas(struct Time *reloj);
 
-//funcion para visualizar minutos
-void mostrar_minutos()
-{
-  const row = 2, col = 10;
-  ver_temporizador(row, col, arrayTemp[N0_Temp].Minuto);
-}
+//funcion para edicion
+void mostrar_segundos_temp(struct Time *reloj);
+void mostrar_minutos_temp(struct Time *reloj);
+void mostrar_horas_temp(struct Time *reloj);
 
-//funcion para visualizar horas
-void mostrar_horas()
-{
-  const row = 2, col = 7;
-  ver_temporizador(row, col, arrayTemp[N0_Temp].Hora);
-}
-
-//funcion para visualizar segundos (edicion)
-void mostrar_segundos_temp()
-{
-  const row = 2, col = 13;
-  ver_temporizador(row, col, Temp.Segundo);
-}
-
-//funcion para visualizar minutos (edicion)
-void mostrar_minutos_temp()
-{
-  const row = 2, col = 10;
-  ver_temporizador(row, col, Temp.Minuto);
-}
-
-//funcion para visualizar horas  (edicion)
-void mostrar_horas_temp()
-{
-  const row = 2, col = 7;
-  ver_temporizador(row, col, Temp.Hora);
-}
-
-void parpadear_segundos_temp()
-{ // funcion para hacer parpadear los segundos
-  mostrar_minutos_temp();
-  mostrar_horas_temp();
-
-  if (parpadeo == 1)
-    mostrar_segundos_temp();
-  else
-  {
-    Lcd_Chr(2, 14, (' '));
-    Lcd_Chr(2, 13, (' '));
-  }
-}
-
-void parpadear_minutos_temp()
-{ //funcion para hacer parpadear los minutos
-  mostrar_segundos_temp();
-  mostrar_horas_temp();
-
-  if (parpadeo == 1)
-    mostrar_minutos_temp();
-  else
-  {
-    Lcd_Chr(2, 11, (' '));
-    Lcd_Chr(2, 10, (' '));
-  }
-}
-
-void parpadear_horas_temp()
-{ //funcion para hacer parpadear las horas
-  mostrar_segundos_temp();
-  mostrar_minutos_temp();
-
-  if (parpadeo == 1)
-    mostrar_horas_temp();
-  else
-  {
-    Lcd_Chr(2, 8, (' '));
-    Lcd_Chr(2, 7, (' '));
-  }
-}
+void parpadear_segundos_temp(struct Time *temporal, short parpadeo);
+void parpadear_minutos_temp(struct Time *temporal, short parpadeo);
+void parpadear_horas_temp(struct Time *temporal, short parpadeo);
 
 void mostrar_puntos(short);
 
@@ -733,9 +644,9 @@ void main()
         leer_EEPROM();
 
       //visualizar segundos,minutos,horas en la LCD
-      mostrar_segundos();
-      mostrar_minutos();
-      mostrar_horas();
+      mostrar_segundos(&arrayTemp[N0_Temp]);
+      mostrar_minutos(&arrayTemp[N0_Temp]);
+      mostrar_horas(&arrayTemp[N0_Temp]);
 
       if (alarmas[0] == 0 && alarmas[1] == 0 && alarmas[2] == 0 && alarmas[3] == 0)
       {
@@ -844,13 +755,13 @@ void main()
       switch (selector)
       {
       case 0:
-        parpadear_segundos_temp();
+        parpadear_segundos_temp(&Temp, parpadeo);
         break;
       case 1:
-        parpadear_minutos_temp();
+        parpadear_minutos_temp(&Temp, parpadeo);
         break;
       case 2:
-        parpadear_horas_temp();
+        parpadear_horas_temp(&Temp, parpadeo);
         break;
       }
 
