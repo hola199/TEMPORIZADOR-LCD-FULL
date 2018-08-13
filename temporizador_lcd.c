@@ -83,11 +83,7 @@ void btn_Parameter(int pin, void (*func)(int), int parametro);
 
 void ver_temporizador(int, int, int);
 //funcion para visualizar segundos
-void mostrar_segundos(struct Time *reloj)
-{
-  const row = 2, col = 13;
-  ver_temporizador(row, col, reloj->Segundo);
-}
+void mostrar_segundos(struct Time *reloj);
 
 //funcion para visualizar minutos
 void mostrar_minutos()
