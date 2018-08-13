@@ -86,11 +86,7 @@ void ver_temporizador(int, int, int);
 void mostrar_segundos(struct Time *reloj);
 
 //funcion para visualizar minutos
-void mostrar_minutos()
-{
-  const row = 2, col = 10;
-  ver_temporizador(row, col, arrayTemp[N0_Temp].Minuto);
-}
+void mostrar_minutos(struct Time *reloj);
 
 //funcion para visualizar horas
 void mostrar_horas()
@@ -712,7 +708,7 @@ void main()
 
       //visualizar segundos,minutos,horas en la LCD
       mostrar_segundos(&arrayTemp[N0_Temp]);
-      mostrar_minutos();
+      mostrar_minutos(&arrayTemp[N0_Temp]);
       mostrar_horas();
 
       if (alarmas[0] == 0 && alarmas[1] == 0 && alarmas[2] == 0 && alarmas[3] == 0)

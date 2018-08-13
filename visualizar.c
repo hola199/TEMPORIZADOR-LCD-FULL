@@ -9,3 +9,11 @@ void mostrar_segundos(struct Time *reloj)
   const row = 2, col = 13;
   ver_temporizador(row, col, reloj->Segundo);
 }
+
+void mostrar_minutos(struct Time *reloj)
+{
+  const row = 2, col = 10;
+  ver_temporizador(row, col, reloj->Minuto);
+}
+
+
