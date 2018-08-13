@@ -40,3 +40,17 @@ void mostrar_horas_temp(struct Time *reloj)
   const row = 2, col = 7;
   ver_temporizador(row, col, reloj->Hora);
 }
+
+void parpadear_segundos_temp(struct Time *temporal, short parpadeo)
+{ // funcion para hacer parpadear los segundos
+  mostrar_minutos_temp(temporal);
+  mostrar_horas_temp(temporal);
+
+  if (parpadeo == 1)
+    mostrar_segundos_temp(temporal);
+  else
+  {
+    Lcd_Chr(2, 14, (' '));
+    Lcd_Chr(2, 13, (' '));
+  }
+}
