@@ -22,6 +22,7 @@ void mostrar_horas(struct Time *reloj)
   ver_temporizador(row, col, reloj->Hora);
 }
 
+// --------------- funciones para visualizar segundos,minutos , horas, para edicion --------------------
 void mostrar_segundos_temp(struct Time *reloj)
 {
   const row = 2, col = 13;
