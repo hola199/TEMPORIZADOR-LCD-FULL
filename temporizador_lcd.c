@@ -95,11 +95,7 @@ void mostrar_horas(struct Time *reloj);
 void mostrar_segundos_temp(struct Time *reloj);
 
 //funcion para visualizar minutos (edicion)
-void mostrar_minutos_temp()
-{
-  const row = 2, col = 10;
-  ver_temporizador(row, col, Temp.Minuto);
-}
+void mostrar_minutos_temp(struct Time *reloj);
 
 //funcion para visualizar horas  (edicion)
 void mostrar_horas_temp()
@@ -110,7 +106,7 @@ void mostrar_horas_temp()
 
 void parpadear_segundos_temp()
 { // funcion para hacer parpadear los segundos
-  mostrar_minutos_temp();
+  mostrar_minutos_temp(&Temp);
   mostrar_horas_temp();
 
   if (parpadeo == 1)
@@ -128,7 +124,7 @@ void parpadear_minutos_temp()
   mostrar_horas_temp();
 
   if (parpadeo == 1)
-    mostrar_minutos_temp();
+    mostrar_minutos_temp(&Temp);
   else
   {
     Lcd_Chr(2, 11, (' '));
@@ -139,7 +135,7 @@ void parpadear_minutos_temp()
 void parpadear_horas_temp()
 { //funcion para hacer parpadear las horas
   mostrar_segundos_temp(&Temp);
-  mostrar_minutos_temp();
+  mostrar_minutos_temp(&Temp);
 
   if (parpadeo == 1)
     mostrar_horas_temp();

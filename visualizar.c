@@ -28,3 +28,8 @@ void mostrar_segundos_temp(struct Time *reloj)
   ver_temporizador(row, col, reloj->Segundo);
 }
 
+void mostrar_minutos_temp(struct Time *reloj)
+{
+  const row = 2, col = 10;
+  ver_temporizador(row, col, reloj->Minuto);
+}
