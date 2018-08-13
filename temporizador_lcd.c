@@ -83,10 +83,10 @@ void btn_Parameter(int pin, void (*func)(int), int parametro);
 
 void ver_temporizador(int, int, int);
 //funcion para visualizar segundos
-void mostrar_segundos()
+void mostrar_segundos(struct Time *reloj)
 {
   const row = 2, col = 13;
-  ver_temporizador(row, col, arrayTemp[N0_Temp].Segundo);
+  ver_temporizador(row, col, reloj->Segundo);
 }
 
 //funcion para visualizar minutos
@@ -715,7 +715,7 @@ void main()
         leer_EEPROM();
 
       //visualizar segundos,minutos,horas en la LCD
-      mostrar_segundos();
+      mostrar_segundos(&arrayTemp[N0_Temp]);
       mostrar_minutos();
       mostrar_horas();
 
