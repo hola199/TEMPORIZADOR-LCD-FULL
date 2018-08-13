@@ -33,3 +33,9 @@ void mostrar_minutos_temp(struct Time *reloj)
   const row = 2, col = 10;
   ver_temporizador(row, col, reloj->Minuto);
 }
+
+void mostrar_horas_temp(struct Time *reloj)
+{
+  const row = 2, col = 7;
+  ver_temporizador(row, col, reloj->Hora);
+}
