@@ -81,22 +81,14 @@ void btn(int pin, void (*func)());
 // tercer parametro sera el parametro de la funcion
 void btn_Parameter(int pin, void (*func)(int), int parametro);
 
-//funcion para visualizar segundos
+//funcion para visualizacion
 void mostrar_segundos(struct Time *reloj);
-
-//funcion para visualizar minutos
 void mostrar_minutos(struct Time *reloj);
-
-//funcion para visualizar horas
 void mostrar_horas(struct Time *reloj);
 
-//funcion para visualizar segundos (edicion)
+//funcion para edicion
 void mostrar_segundos_temp(struct Time *reloj);
-
-//funcion para visualizar minutos (edicion)
 void mostrar_minutos_temp(struct Time *reloj);
-
-//funcion para visualizar horas  (edicion)
 void mostrar_horas_temp(struct Time *reloj);
 
 void parpadear_segundos_temp()
